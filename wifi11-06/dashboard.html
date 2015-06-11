@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--head starts-->
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title></title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/jquery.fancybox.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" />
+        <link rel="stylesheet" href="css/owl.carousel.css" />
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/highcharts.js"></script>
+        <script src="js/jquery.selectbox-2.js"></script>
+        <script src="js/custom-radio-check.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/jquery.fancybox.js"></script>
+        <script src="js/d3/d3.v3.min.js" charset="utf-8"></script>
+        <script src="js/jquery.selectBoxIt.min.js"></script>
+        <script src="js/d3/sankey.js"></script>
+        <script src="js/circles.min.js"></script>
+        <script src="js/script.js"></script>
+</head>
+<!--head ends-->
+<body style="position:relative;">
+
+<!--Save Button Popup Starts-->
+<div class="fancy-save fancy-popup" id="save-widget-popup" style="display:none;" >
+	<div class="fancy-head"><h5>Save Widget Group</h5><div class="popupClose"><i></i></div></div>
+    <div class="fancy-inner">
+    	
+        <div class="radio-option">
+             <div class="radio-option-input">
+                  <div class="radio">
+                      <label class="label_radio">
+                        <input type="radio" value="groupAdd" id="optionsRadios1" class="groupRadio" name="optionsRadios" checked>
+                      </label>
+                      Select Group
+                  </div>
+				  <div style="" class="forgot-id">
+                      <div class="radio-inner">           
+                        <input type="text" placeholder="Group Name" class="form-input" id="groupName"> 
+                      </div>
+            	  </div>            
+              </div>
+             <div class="radio-option-input">
+                  <div class="radio">
+                      <label class="label_radio">
+                        <input type="radio" value="groupOverwrite" id="optionsRadios1" class="groupRadio" name="optionsRadios">
+                      </label>
+                      Overwrite Existing Group
+                  </div>
+				  <div class="radio radio-nxt">
+                      <div class="radio-inner popup-drop">           
+                        <select class="existing-groups moreCategoriesSelect">
+                        	<option selected>Group 1</option>
+                        	<option>Group 2</option>
+                        	<option>Group 3</option>
+                        </select>
+                      </div>
+            	  </div>            
+              </div>             
+        </div>    	 
+        <div class="pop-btn save-popup">
+             	<button type="submit" class="white-pop-btn cancel">Cancel</button>
+                <button type="submit" class="blue-pop-btn save-widget-group">Save</button>
+            </div>   	
+    </div>    
+</div>
+<div class="fancy-save" id="create-campaign-popup">
+	<div class="fancy-head"><h5>Create New Campaign</h5><div class="popupClose"><i></i></div></div>
+    <div class="fancy-inner">
+    	<div class="fancy-left">
+        	<ul>
+            	<li class="active"><i></i><span>Name</span></li>
+            	<li><i></i><span>Location</span></li>
+            	<li><i></i><span>Date</span></li>
+            	<li><i></i><span>Days</span></li>
+            </ul>
+        </div>
+    	<div class="fancy-right  popup-drop">
+        	<label>Choose a Name for your Campaign</label>
+            <input class="camp-name" type="text" placeholder="Name">
+            <label>Choose a Location</label>
+            <select class="camp-location moreCategoriesSelect">
+                <option>Location</option>
+                <option>Location 1</option>
+                <option>Location 2</option>
+                <option>Location 3</option>
+                <option>Location 4</option>
+            </select>    
+            
+            <label>Choose a Date</label> 
+            <div class="time-period">      
+                <div class="time-input"><input type="text" placeholder="From" class="from datepicker" ></div>
+                <div class="time-input no-margin"><input type="text" placeholder="To" class="to datepicker" ></div>
+            </div>
+            <div class="week-day">
+            	<span>Days Active</span>
+                <ul>
+                	<li><a href="javascript:void(0);">S</a></li>
+                	<li><a href="javascript:void(0);">M</a></li>
+                	<li><a href="javascript:void(0);">T</a></li>
+                	<li><a href="javascript:void(0);">W</a></li>
+                	<li><a href="javascript:void(0);">Th</a></li>
+                	<li><a href="javascript:void(0);">F</a></li>
+                	<li><a href="javascript:void(0);">S</a></li>
+                </ul>
+            </div>                   
+        </div> 
+        <div class="pop-btn">
+             	<button type="submit" class="white-pop-btn cancel">Cancel</button>
+                <button type="submit" class="blue-pop-btn go">Go</button>
+            </div>   	
+    </div>    
+</div>
+<!--Save Button Popup ends-->
+<!--Header starts-->
+<header>
+	<!--header-left start-->
+    <div class="header-left">
+        <div class="menu-icon">
+            <i></i>
+            <ul class="menu-drop">
+                <li><a class="menuDash" href="javascript:void(0);"><i></i><span>Dashboard</span></a></li>
+                <li><a class="menuAnalytic" href="javascript:void(0);"><i></i><span>Analytics</span></a></li>
+                <li><a class="menuRule" href="javascript:void(0);"><i></i><span>Rule Admin</span></a></li>
+                <li><a class="menuDevice" href="javascript:void(0);"><i></i><span>Device Management</span></a></li>
+                <li><a class="menuAction" href="javascript:void(0);"><i></i><span>Action Templates</span></a></li>
+                <li><a class="menuSystem" href="javascript:void(0);"><i></i><span>System Statistics</span></a></li>
+                <li><a class="menuSetting" href="javascript:void(0);"><i></i><span>Settings</span></a></li>
+            </ul>
+        </div>
+        <a class="logo"  href="javascript:void(0);"><img src="images/logo.png"  alt="logo"></a>
+    </div>
+    <!--header-left ends-->
+    <!--header-right start-->
+    <div class="header-right">
+        <div class="header-search"><input type="text" id="searchID"><i class="search-icon"></i></div>
+        <div class="header-user">
+            <i class="user-icon"></i>
+            <span>Admin</span>
+            <div class="drop-arrow">
+                <i></i>
+                <ul class="admin-drop">
+                    <li><a href="javascript:void(0);">Admin 1</a></li>
+                    <li><a href="javascript:void(0);">Admin 2</a></li>
+                    <li><a href="javascript:void(0);">Admin 3</a></li>
+                    <li><a href="javascript:void(0);">Admin 4</a></li>
+                </ul> 
+            </div>                               
+        </div>
+        <div class="setting">
+            <i></i>                    
+            <ul class="setting-drop">
+                <li><a href="javascript:void(0);">setting 1</a></li>
+                <li><a href="javascript:void(0);">setting 2</a></li>
+                <li><a href="javascript:void(0);">setting 3</a></li>
+                <li><a href="javascript:void(0);">setting 4</a></li>
+            </ul> 
+        </div>
+    </div>
+    <!--header-right ends-->
+</header>
+<!--Header endss-->
+<!--body wrap starts-->
+<div class="body-wrap">
+	<div class="center-area">
+		<!--graph area starts-->        
+        <div class="middle-wrap dash-middle-wrap">
+                <div class="middle-wrap-in">
+                    <div class="user-detail-top">
+                        <div class="user-detail-left"><i></i><span>Users</span></div>
+                        <div class="user-detail-right"><span>88</span></div>
+                    </div>
+                    <div class="detail-bottom">
+                        <div class="detail-bottom-left">
+                            <div class="day"><i></i><span>In last 7 days</span></div>
+                            <div class="date"><i></i><span>12/02/2015 to 25/02/2015</span></div>
+                        </div>
+                        <div class="detail-bottom-right"></div>
+                    </div>
+                </div>  
+                <div class="middle-wrap-in detail-second">
+                    <div class="user-detail-top">
+                        <div class="user-detail-left"><i></i><span>Probing Users</span></div>
+                        <div class="user-detail-right"><span>54</span></div>
+                    </div>
+                    <div class="detail-bottom">
+                        <div class="detail-bottom-left">
+                            <div class="day"><i></i><span>In last 7 days</span></div>
+                            <div class="date"><i></i><span>12/02/2015 to 25/02/2015</span></div>
+                        </div>
+                        <div class="detail-bottom-right"></div>
+                    </div>
+                </div> 
+                <div class="middle-wrap-in detail-third">
+                    <div class="user-detail-top">
+                        <div class="user-detail-left"><i></i><span>Associate Users</span></div>
+                        <div class="user-detail-right"><span>34</span></div>
+                    </div>
+                    <div class="detail-bottom">
+                        <div class="detail-bottom-left">
+                            <div class="day"><i></i><span>In last 7 days</span></div>
+                            <div class="date"><i></i><span>12/02/2015 to 25/02/2015</span></div>
+                        </div>
+                        <div class="detail-bottom-right"></div>
+                    </div>
+                </div> 	
+                <div class="middle-wrap-in detail-fourth">
+                    <div class="user-detail-top">
+                        <div class="user-detail-left"><i></i><span>Avg Dwell Time <i>(min)</i></span></div>
+                        <div class="user-detail-right"><span>43</span></div>
+                    </div>
+                    <div class="detail-bottom">
+                        <div class="detail-bottom-left">
+                            <div class="day"><i></i><span>In last 7 days</span></div>
+                            <div class="date"><i></i><span>12/02/2015 to 25/02/2015</span></div>
+                        </div>
+                        <div class="detail-bottom-right"></div>
+                    </div>
+                </div>
+            </div>    
+    	<div class="graph-center-area">       
+            <div class="graph-container">        	
+                <div class="graph-container-head">
+                    <div class="graph-head-left"><h4>Path Distribution</h4></div>
+                    <div class="graph-head-right">
+                        <div class="refresh">
+                            <i></i>
+                        </div>
+                        <div class="setting-gp">
+                            <i></i>
+                        </div>
+                        <div class="delete">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="graph-container-content">
+                    <!--<div class="checkBox">
+                        <p>Filter</p>
+                        <label><input id="inputSelect" type="checkbox"><span>Incoming Customers</span></label>
+                        <label><input id="inputSelect" type="checkbox"><span>Incoming Customers</span></label>
+                    </div>-->
+                    <div id="canvas">
+                        <div class="circle" id="circles-1"></div>
+                    </div>
+                    <div class="graph-content-top">
+                        <div class="graph-content-left">
+                            <h3>458</h3>
+                            <p>Total Visitors</p>
+                            <div class="progress-bar"><div class="progress-bar-in"></div></div>
+                            <ul>
+                            <li><strong>450</strong> Total Views</li>
+                            <li><strong>215</strong> Total Conversions</li>
+                            </ul>
+                        </div>
+                        <div class="graph-content-right">
+                        	<div class="dropdownValue noMargin">
+                                <span class="dropHeading">Select Hours</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>Top Campaigns</option>
+                                    <option>Gold Customers</option>
+                                    <option>Ending Soon</option>
+                                </select>                                    
+                            </div>
+                            <div class="dropdownValue noMargin">
+                                <span class="dropHeading">All Campaigns</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>Hourly Campaigns</option>
+                                    <option>Hourly Campaigns</option>
+                                    <option>Monthly Campaigns</option>
+                                    <option>Total Campaigns</option>
+                                </select>                                    
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="floor-detail">
+                        <li><i class="list-circle"></i><span>Basement</h6><p>No Active Campaign</span></li>
+                        <li><i class="list-circle"></i><span>Ground Floor</h6><p>Campaign C</span></li>  
+                        <li><i class="list-circle"></i><span>1st Floor</h6><p>Campaign B</span></li>
+                        <li><i class="list-circle"></i><span>2nd Floor</h6><p>Campaign D</span></li>
+                        <li><i class="list-circle"></i><span>3rd Floor</h6><p>Campaign F</span></li>
+                        <li><i class="list-circle"></i><span>4th Floor</h6><p>Campaign F</span></li>
+                        <li><i class="list-circle"></i><span>5th Floor</h6><p>Campaign F</span></li>
+                    </ul>
+                    <div class="fix-circle">
+                        <div class="floor-camp-info">
+                        	<div class="dropdownValue marginZero">
+                                <span class="dropHeading noRmargin">All Campaigns</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>Campaign A</option>
+                                    <option>Campaign B</option>
+                                    <option>Campaign C</option>
+                                    <option>Campaign D</option>
+                                </select>                                    
+                             </div>
+                            
+                            <div class="day"><i></i><span>Ended 14 days ago</span></div>
+                            <ul class="floor-user">
+                                <li><h3 data-connectedUsers="">112</h3><p>Connected Users</p></li>
+                                <li><h3 data-probingUsers="">75</h3><p>Probing Users</p></li>
+                            </ul>
+                        </div>
+                        <div class="floor-info">
+                            <div class="spacer85"></div>
+                            <button class="white-btn create-campaign-button">Create Campaign</button>
+                            <p>15 Visited just now</p>
+                        </div>
+                    </div>
+                    <ul class="user-connection">
+                        <li><i></i><span>Connected Users</span></li>
+                        <li><i class="blue-icon"></i><span>Probing Users</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="graph-container">
+                <div class="graph-container-head">
+                    <div class="graph-head-left"><h4>User</h4></div>
+                    <div class="graph-head-right">
+                        <div class="refresh">
+                            <i></i>
+                        </div>
+                        <div class="setting-gp">
+                            <i></i>
+                        </div>
+                        <div class="delete">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>   	
+                <div class="user-section">
+                    <div class="left-section">
+                        <h6>Location</h6>
+                        <div class="location-search">
+                        	<div class="dropdownValue noBmargin">
+                                <span class="dropHeading">Select Location</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>1st Floor</option>
+                                    <option>2nd Floor</option>
+                                    <option>3rd Floor</option>
+                                    <option>4th Floor</option>
+                                </select>                                    
+                             </div>
+                            <!--<div class="dropdown select-location"><span>Select Location</span><i></i><span class="dropdown-arrow"></span>
+                                <ul class="drop-option">
+                                    <li><a href="javascript:void(0);" data-location="">1st Floor</a></li>
+                                    <li><a href="javascript:void(0);" data-location="">2nd Floor</a></li>
+                                    <li><a href="javascript:void(0);" data-location="">3rd Floor</a></li>
+                                    <li><a href="javascript:void(0);" data-location="">4th Floor</a></li>
+                                </ul>
+                            </div>-->
+                            <div class="loc-search-input"><input type="text" placeholder="Search Location"><i></i></div>
+                        </div>
+                        <div class="time">
+                            <div class="day"><i></i><span>3:42 PM</span></div>
+                            <div class="text-center"><h3 data-totalCustomer="">340</h3><p>Total Customers</p></div>
+                        </div>
+                        <ul class="num-user">
+                            <li><span>Returning Users</span><i data-retUsers="">157</i></li>
+                            <li><span>Probing Users</span><i data-probUsers="">340</i></li>
+                            <li><span>Associated Users</span><i data-assocUsers="">230</i></li>
+                        </ul>
+                        <ul class="user-option">
+                            <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li>
+                            <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li>
+                            <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="left-section middle-section dash-section">
+                        <h6>Customers Stat</h6>
+                        <div class="location-search">
+                        	<div class="dropdownValue noBmargin">
+                                <span class="dropHeading">Select User Type</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>All Users</option>
+                                    <option>Gold Users</option>
+                                    <option>New Guests</option>
+                                    <option>Repeat Users</option>
+                                    <option>Employees</option>
+                                    <option>Probing Users</option>
+                                </select>                                    
+                            </div>
+                            <div class="loc-search-input"><input type="text" placeholder="Search User" data-search="1"><i></i></div>
+                        </div>
+                        <div class="allUserType customer-stat">
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Tony Sebastian</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>15</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Patio</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Chase Downing</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>4</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Lounge</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>10</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>9</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Cafe</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div>
+                                <div class="mid-txt"><p>Visits:<span>12</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Ballroom</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Tony Sebastian</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>10</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Lobby</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>14</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Patio</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Chase Downing</h6></div>
+                                <div class="mid-txt"><p>Visits:<span>13</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Ballroom</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Mak Smith</h6></div>
+                                <div class="mid-txt"><p>Visits:<span>15</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>3</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Lobby</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>13</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits: <span>13</span></p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits:<span>13</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                            <div class="user-type" item-container>
+                                <div class="left-txt"><h6 data-items="1">John Smith</h6></div>
+                                <div class="mid-txt"><p>Visits:<span>13</span> </p></div>
+                                <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-section">
+                        <div class="right-top">
+                            <div class="personal-del">
+                                <div class="user-pic">
+                                    <div class="user-pic-in"><img src="images/user-icn.png"></div> 
+                                    <div class="user-state">Return User</div> 
+                                    <div class="user-pic-del"><h5 data-name="">Chase Downing</h5><p>Male / Age 46</p></div>
+                                </div>
+                            </div>
+                            <div class="top-right">
+                                <p>Visits: <span data-visits="">34</span></p>
+                                <p>Favorite Spot: <span data-farouriteSpot="">Lounge</span></p>
+                            </div>
+                        </div>
+                        <div class="loc-detail last-scene">
+                            <h6>Last Seen</h6>
+                            <ul>
+                                <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> 
+                                    <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> 
+                                    <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> 
+                                    <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li>
+                                    <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                    <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                            </ul>
+                        </div>
+                        <div class="loc-detail">
+                            <h6>Beer Fest</h6><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                            <ul>
+                                <li><p>Bar</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>	
+            <div class="graph-container">
+                <div class="graph-container-head">
+                    <div class="graph-head-left"><h4>All Campaigns</h4></div>
+                    <div class="graph-head-right">
+                        <div class="refresh">
+                            <i></i>
+                        </div>
+                        <div class="setting-gp">
+                            <i></i>
+                        </div>
+                        <div class="delete">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>   	
+                <div class="user-section">
+                <!--"less-width" applied just for hierarchy-->
+                <div class="less-width">
+                    <div class="left-section left-section-camp">
+                        <h6>Location</h6>
+                        <div class="border-bottom">
+                            <div class="location-search">
+                            	<div class="dropdownValue noBmargin">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>1st Floor</option>
+                                        <option>2nd Floor</option>
+                                        <option>3rd Floor</option>
+                                        <option>4th Floor</option>
+                                    </select>                                    
+                                </div>                                
+                                <div class="loc-search-input"><input type="text" placeholder="Search Location"><i></i></div>
+                            </div>                        
+                        </div>                   
+                        <ul class="camp-detail">
+                            <li class="odd"><h3>6</h3><span>Hourly Campaigns</span></li>
+                            <li class="even"><h3>7</h3><span>Hourly Campaigns</span></li>
+                            <li class="odd"><h3>12</h3><span>Monthly Campaigns</span></li>
+                            <li class="even"><h3>25</h3><span>Total Campaigns</span></li>
+                        </ul>
+                        <ul class="user-option">
+                            <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li>
+                            <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li>
+                            <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--"less-width" applied just for hierarchy-->
+                
+                    <div class="left-section camp-time-info">
+                        <h6>All Campaigns</h6>
+                        <div class="location-search">
+                        	<div class="dropdownValue noBmargin">
+                                <span class="dropHeading">Select Campaigns</span>
+                                <select class="dropdown">
+                                    <option>Select</option>
+                                    <option>Hourly Campaigns</option>
+                                    <option>Hourly Campaigns</option>
+                                    <option>Monthly Campaigns</option>
+                                    <option>Total Campaigns</option>
+                                </select>                                    
+                            </div>
+                            <div class="loc-search-input"><input type="text" placeholder="Search Campaigns" data-search="2"><i></i></div>
+                        </div>
+                        <div class="allUserType all-campaigns">
+                            <div class="user-camp-det" item-container>
+                                <div class="left-camp-del" >
+                                    <span data-items="2">Beer Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                    <p>02/04/2015 - 01/05/2015 </p>
+                                    <ul class="map-list">
+                                        <li><p>Bar</p></li>
+                                    </ul>
+                                </div>
+                                <div class="right-camp-del" >
+                                    <p><strong>67</strong> Views</p>
+                                    <span>6 pm to 11:30 pm</span>
+                                    <ul class="week">
+                                        <li>T</li>
+                                        <li>Th</li>
+                                        <li>F</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="user-camp-det" item-container>
+                                <div class="left-camp-del">
+                                    <span data-items="2">Masquerade Ball</span><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                    <p>02/04/2015 - 01/05/2015 </p>
+                                    <ul class="map-list">
+                                        <li><p>Ballroom</p></li>
+                                    </ul>
+                                </div>
+                                <div class="right-camp-del">
+                                    <p><strong>67</strong> Views</p>
+                                    <span>9 pm to 12 pm</span>
+                                    <ul class="week">
+                                        <li>M</li>
+                                        <li>Th</li>
+                                        <li>F</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="user-camp-det" item-container>
+                                <div class="left-camp-del">
+                                    <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                    <p>02/04/2015 - 01/05/2015 </p>
+                                    <ul class="map-list">
+                                        <li><p>West Veranda</p></li>
+                                    </ul>
+                                </div>
+                                <div class="right-camp-del">
+                                    <p><strong>67</strong> Views</p>
+                                    <span>6 pm to 9 pm</span>
+                                    <ul class="week">
+                                        <li>T</li>
+                                        <li>Th</li>
+                                        <li>F</li>
+                                    </ul>
+                                </div>
+                            </div>  
+                        <div class="user-camp-det" item-container>
+                                <div class="left-camp-del">
+                                    <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                    <p>02/04/2015 - 01/05/2015 </p>
+                                    <ul class="map-list">
+                                        <li><p>West Veranda</p></li>
+                                    </ul>
+                                </div>
+                                <div class="right-camp-del">
+                                    <p><strong>67</strong> Views</p>
+                                    <span>6 pm to 9 pm</span>
+                                    <ul class="week">
+                                        <li>T</li>
+                                        <li>Th</li>
+                                        <li>F</li>
+                                    </ul>
+                                </div>
+                            </div> 
+                    <div class="user-camp-det" item-container>
+                                <div class="left-camp-del">
+                                    <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                    <p>02/04/2015 - 01/05/2015 </p>
+                                    <ul class="map-list">
+                                        <li><p>West Veranda</p></li>
+                                    </ul>
+                                </div>
+                                <div class="right-camp-del">
+                                    <p><strong>67</strong> Views</p>
+                                    <span>6 pm to 9 pm</span>
+                                    <ul class="week">
+                                        <li>T</li>
+                                        <li>Th</li>
+                                        <li>F</li>
+                                    </ul>
+                                </div>
+                            </div> 						
+                        </div>
+                    </div>
+                    <div class="right-section camp-graph">
+                        <div class="right-top">
+                            <div class="personal-del">
+                                <div class="user-pic">
+                                    <div class="user-pic-in"><img src="images/user-icn.png"></div>
+                                    <div class="user-state">Active</div> 
+                                    <div class="user-pic-del"><h5 data-campaignName="">Masquerade Ball</h5><a class="edit-icon" href="javascript:void(0);"><i></i></a>
+                                        <ul class="map-list">
+                                            <li><p data-campaignLocation="">Ballroom</p></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="top-right">
+                                <p>4 days remaining</p>
+                            </div>
+                        </div>
+                        <div class="loc-detail">
+                            <h6>Campaign Views</h6>
+                            <div class="campGraphVal">
+                            <!-- <img src="images/camp-map.jpg" alt=""> -->
+                            <div class="campaign-views" style="width: 300px; height: 150px; margin: 0 auto"></div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="campLocation">
+                            <h6>Locations</h6>
+                        <div class="loc-section location-section">
+                            <ul class="map-list">
+                                <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>3th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li>
+                                <li><p>3th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li>
+                            </ul>                
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <div class="graph-container">
+                <div class="graph-container-head">
+                    <div class="graph-head-left"><h4>Associated/Probing/Repeat Users</h4></div>
+                    <div class="graph-head-right">
+                        <div class="refresh">
+                            <i></i>
+                        </div>
+                        <div class="setting-gp">
+                            <i></i>
+                        </div>
+                        <div class="delete">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="graph-content-top">
+                    <div class="time-nav">
+                        <ul>
+                            <li class="active"><a href="javascript:void(0);" data-filter="">Day</a></li>
+                            <li><a href="javascript:void(0);" data-filter="">Week</a></li>
+                            <li><a href="javascript:void(0);" data-filter="">Month</a></li>
+                        </ul>
+                    </div>
+                    <div class="graph-content-right">
+                       <!--menu for time-->
+                       <div class="dropdownValue noMargin menu-day">
+                            <span class="dropHeading">Select Hours</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 4 Hours</option>
+                                <option>Last 8 Hours</option>
+                                <option>Last 12 Hours</option>
+                                <option>Last 16 Hours</option>
+                                <option>Last 20 Hours</option>
+                            </select>                                    
+                       </div>
+                       <!--menu for Day-->
+                       <div class="dropdownValue noMargin menu-week" style="display:none;">
+                            <span class="dropHeading">Select Day</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 1 Day</option>
+                                <option>Last 2 Days</option>
+                                <option>Last 3 Days</option>
+                                <option>Last 4 Days</option>
+                                <option>Last 5 Days</option>
+                                <option>Last 6 Days</option>
+                                <option>Last 7 Days</option>
+                            </select>                                    
+                        </div>
+                       
+                       <!--menu for Month-->
+                       <div class="dropdownValue noMargin menu-month" style="display:none;">
+                            <span class="dropHeading">Select Month</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 1 Month</option>
+                                <option>Last 2 Months</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 4 Months</option>
+                                <option>Last 5 Months</option>
+                                <option>Last 6 Months</option>
+                            </select>                                    
+                       </div>
+                    </div>
+                    <div class="campGraphVal">
+                    <!-- <img alt="" src="images/graphOne.jpg"> -->
+                    <div class="users-container" style="  width: 1250px;height: 272px;margin: 0 0px 0 20px;"></div>
+                    </div>
+                </div>   	
+                
+            </div>
+            <div class="graph-container">
+                <div class="graph-container-head">
+                    <div class="graph-head-left"><h4>Average Dwell Time</h4></div>
+                    <div class="graph-head-right">
+                        <div class="refresh">
+                            <i></i>
+                        </div>
+                        <div class="setting-gp">
+                            <i></i>
+                        </div>
+                        <div class="delete">
+                            <i></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="graph-content-top">
+                    <div class="time-nav time-nav-widget">
+                        <ul>
+                            <li class="active"><a href="javascript:void(0);" data-filter2="">Day</a></li>
+                            <li><a href="javascript:void(0);" data-filter2="">Week</a></li>
+                            <li><a href="javascript:void(0);" data-filter2="">Month</a></li>
+                        </ul>
+                    </div>
+                    <div class="graph-content-right">
+                        <!--menu for time-->
+                        <div class="dropdownValue noMargin menu-day2">
+                            <span class="dropHeading">Select Hours</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 4 Hours</option>
+                                <option>Last 8 Hours</option>
+                                <option>Last 12 Hours</option>
+                                <option>Last 16 Hours</option>
+                                <option>Last 20 Hours</option>
+                            </select>                                    
+                        </div>
+                        
+                       <!--menu for Day-->
+                       <div class="dropdownValue noMargin menu-week2" style="display:none;">
+                            <span class="dropHeading">Select Day</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 1 Day</option>
+                                <option>Last 2 Days</option>
+                                <option>Last 3 Days</option>
+                                <option>Last 4 Days</option>
+                                <option>Last 5 Days</option>
+                                <option>Last 6 Days</option>
+                                <option>Last 7 Days</option>
+                            </select>                                    
+                        </div>
+                       
+                       <!--menu for Month-->
+                       <div class="dropdownValue noMargin menu-month2" style="display:none;">
+                            <span class="dropHeading">Select Month</span>
+                            <select class="dropdown">
+                                <option>Select</option>
+                                <option>Last 1 Month</option>
+                                <option>Last 2 Months</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 4 Months</option>
+                                <option>Last 5 Months</option>
+                                <option>Last 6 Months</option>
+                            </select>                                    
+                       </div>                       
+                    </div>
+                    <div class="campGraphVal"><!-- <img alt="" src="images/graphtwo.jpg"> -->
+                    <div class="campGraph" style="width: 1250px;height: 272px;margin: 0 0px 0 20px;"></div>
+                    </div>
+                </div>   	
+                
+            </div>
+        </div>
+        <div class="add-widget">
+        	<p><i></i> Add a Widget</p>
+        </div>
+        <div class="btn-gp"><button class="blue-btn save-widgets-btn">Save Widgets Group</button></div>
+		<!--graph area ends-->
+    </div>
+    
+</div>
+<!--body wrap ends-->
+<div id="ut-toolbar" class=""><div class="utToolbarHelper" id="utToolbarHelper" onClick="utLoadTab();" style="display: none;"></div><div class="utToolbarWrapper utToolbarRight utToolbarHidden" id="utToolbarWrapper" style="top: 138px; right: 0px; display: block;"><div id="utOverlay"></div><div class="utSliderIcon" id="utSliderIcon" onClick="utLoadUnified();" style="height: 140px;"><span class="utHelpText"></span><span class="utCloseIcon" onClick="utLoadEntry();"></span></div></div></div>
+ <div class="widget-wrap" style="width: 36px; right: 0px;">
+    	<div class="widget-head collapsed" ><i></i><h6 style="display: none;">Widgets</h6></div>
+		<div class="widget-vertical"><span>Widgets</span></div>
+        <div class="widget-inner-wrapper" style="display:none;">
+        <div class="widget-list" >
+		    <div class="widget-item path">Path Distribution</div>
+            <div class="widget-item user">User</div>
+			<div class="widget-item allCamp">All Campaigns</div>
+            <div class="widget-item combined">Associated/Probing/Repeat Users</div>
+            <div class="widget-item combined2">Average Dwell Time</div>
+        </div>
+    	<div class="widget-gp"><h6>Saved Widget Groups</h6></div>
+        <ul class="widget-gp-list">
+        	<li><a href="javascript:void(0);"><span data-groupname="Group 1">Group 1</span><i></i></a>
+            	<ul>
+				<li><a href="javascript:void(0);"><span>User</span></a></li>
+				<li><a href="javascript:void(0);"><span>Path Distribution</span></a></li>
+				<li><a href="javascript:void(0);"><span>All Campaigns</span></a></li>
+				<li><a href="javascript:void(0);"><span>Average Dwell Time</span></a></li>
+				<li><a href="javascript:void(0);"><span>Associated/Probing/Repeat Users</span></a></li>
+				</ul>
+            </li>
+        	<li><a href="javascript:void(0);"><span data-groupname="Group 2">Group 2</span><i></i></a>
+            	<ul>
+				<li><a href="javascript:void(0);"><span>User</span></a></li>
+				<li><a href="javascript:void(0);"><span>All Campaigns</span></a></li>
+				</ul>
+            </li>
+        	<li><a href="javascript:void(0);"><span data-groupname="Group 3">Group 3</span><i></i></a>
+            	<ul>
+				<li><a href="javascript:void(0);"><span>User</span></a></li>
+				<li><a href="javascript:void(0);"><span>All Campaigns</span></a></li>
+				<li><a href="javascript:void(0);"><span>Average Dwell Time</span></a></li>
+				</ul>
+            </li>
+        </ul>  	
+    </div>
+
+
+
+<div class="templates" style="display:none;">
+<div class="graph-container user  ui-sortable-handle"> <div class="graph-container-head"> <div class="graph-head-left"><h4>User</h4></div> <div class="graph-head-right"> <div class="refresh"> <i></i> </div> <div class="setting-gp"> <i></i> </div> <div class="delete"> <i></i> </div> </div> </div> <div class="user-section"> <div class="left-section"> <h6>Location</h6> <div class="location-search"> <div class="dropdownValue noBmargin"> <span class="dropHeading">Selection Location</span> <select class="dropdown"> <option>Select</option> <option>1st Floor</option> <option>2nd Floor</option> <option>3rd Floor</option> <option>4th Floor</option> </select> </div> <div class="loc-search-input"><input type="text" placeholder="Search Location"><i></i></div> </div> <div class="time"> <div class="day"><i></i><span>3:42 PM</span></div> <div class="text-center"><h3 data-totalCustomer="">340</h3><p>Total Customers</p></div> </div> <ul class="num-user"> <li><span>Returning Users</span><i data-retUsers="">157</i></li> <li><span>Probing Users</span><i data-probUsers="">340</i></li> <li><span>Associated Users</span><i data-assocUsers="">230</i></li> </ul> <ul class="user-option"> <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li> <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li> <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li> </ul> </div> <div class="left-section middle-section dash-section"> <h6>Customers Stat</h6> <div class="location-search"> <div class="dropdownValue noBmargin"> <span class="dropHeading">Select User Type</span> <select class="dropdown"> <option>Select</option> <option>All Users</option> <option>Gold Users</option> <option>New Guests</option> <option>Repeat Users</option> <option>Employees</option> <option>Probing Users</option> </select> </div> <div class="loc-search-input"><input type="text" placeholder="Search User" data-search="1"><i></i></div> </div> <div class="allUserType customer-stat"> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Tony Sebastian</h6></div> <div class="mid-txt"><p>Visits: <span>15</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Patio</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Chase Downing</h6></div> <div class="mid-txt"><p>Visits: <span>4</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Lounge</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div> <div class="mid-txt"><p>Visits: <span>10</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits: <span>9</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Cafe</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div> <div class="mid-txt"><p>Visits:<span>12</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Ballroom</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Tony Sebastian</h6></div> <div class="mid-txt"><p>Visits: <span>10</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Lobby</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits: <span>14</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Patio</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Chase Downing</h6></div> <div class="mid-txt"><p>Visits:<span>13</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Ballroom</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Mak Smith</h6></div> <div class="mid-txt"><p>Visits:<span>15</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">Michael Lee</h6></div> <div class="mid-txt"><p>Visits: <span>3</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Lobby</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits: <span>13</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits: <span>13</span></p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits:<span>13</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> <div class="user-type" item-container> <div class="left-txt"><h6 data-items="1">John Smith</h6></div> <div class="mid-txt"><p>Visits:<span>13</span> </p></div> <div class="right-txt"><p>Favorite Spot:<span> Bar</span></p></div> </div> </div> </div> <div class="right-section"> <div class="right-top"> <div class="personal-del"> <div class="user-pic"> <div class="user-pic-in"><img src="images/user-icn.png"></div> <div class="user-state">Return User</div> <div class="user-pic-del"><h5 data-name="">Chase Downing</h5><p>Male / Age 46</p></div> </div> </div> <div class="top-right"> <p>Visits: <span data-visits="">34</span></p> <p>Favorite Spot: <span data-farouriteSpot="">Lounge</span></p> </div> </div> <div class="loc-detail last-scene"> <h6>Last Seen</h6> <ul> <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015  </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> </ul> </div> <div class="loc-detail"> <h6>Beer Fest</h6><a class="edit-icon" href="javascript:void(0);"><i></i></a> <ul> <li><p>Bar</p></li> </ul> </div> </div> </div> </div>
+
+<div class="combined graph-container"> <div class="graph-container-head"> <div class="graph-head-left"><h4>Associated/Probing/Repeat Users</h4></div> <div class="graph-head-right"> <div class="refresh"> <i></i> </div> <div class="setting-gp"> <i></i> </div> <div class="delete"> <i></i> </div> </div> </div> <div class="graph-content-top"> <div class="time-nav"> <ul> <li class="active"><a href="javascript:void(0);" data-filter="">Day</a></li> <li><a href="javascript:void(0);" data-filter="">Week</a></li> <li><a href="javascript:void(0);" data-filter="">Month</a></li> </ul> </div> <div class="graph-content-right"> <!--menu for time--> <div class="dropdownValue noMargin menu-day"> <span class="dropHeading">Select Hours</span> <select class="dropdown"> <option>Select</option> <option>Last 4 Hours</option> <option>Last 8 Hours</option> <option>Last 12 Hours</option> <option>Last 16 Hours</option> <option>Last 20 Hours</option> </select> </div> <!--menu for Day--> <div class="dropdownValue noMargin menu-week" style="display:none;"> <span class="dropHeading">Select Day</span> <select class="dropdown"> <option>Select</option> <option>Last 1 Day</option> <option>Last 2 Days</option> <option>Last 3 Days</option> <option>Last 4 Days</option> <option>Last 5 Days</option> <option>Last 6 Days</option> <option>Last 7 Days</option> </select> </div> <!--menu for Month--> <div class="dropdownValue noMargin menu-month" style="display:none;"> <span class="dropHeading">Select Month</span> <select class="dropdown"> <option>Select</option> <option>Last 1 Month</option> <option>Last 2 Months</option> <option>Last 3 Months</option> <option>Last 4 Months</option> <option>Last 5 Months</option> <option>Last 6 Months</option> </select> </div> </div> <div class="campGraphVal"> <!-- <img alt="" src="images/graphOne.jpg"> --> <div class="users-container" style="width:1220px; height:272px;margin: 0 25px;"></div> </div> </div> </div>
+
+<div class="graph-container combined2"> <div class="graph-container-head"> <div class="graph-head-left"><h4>Average Dwell Time</h4></div> <div class="graph-head-right"> <div class="refresh"> <i></i> </div> <div class="setting-gp"> <i></i> </div> <div class="delete"> <i></i> </div> </div> </div> <div class="graph-content-top"> <div class="time-nav time-nav-widget"> <ul> <li class="active"><a href="javascript:void(0);" data-filter2="">Day</a></li> <li><a href="javascript:void(0);" data-filter2="">Week</a></li> <li><a href="javascript:void(0);" data-filter2="">Month</a></li> </ul> </div> <div class="graph-content-right"> <!--menu for time--> <div class="dropdownValue noMargin menu-day2"> <span class="dropHeading">Select Hours</span> <select class="dropdown"> <option>Select</option> <option>Last 4 Hours</option> <option>Last 8 Hours</option> <option>Last 12 Hours</option> <option>Last 16 Hours</option> <option>Last 20 Hours</option> </select> </div> <!--menu for Day--> <div class="dropdownValue noMargin menu-week2" style="display:none;"> <span class="dropHeading">Select Day</span> <select class="dropdown"> <option>Select</option> <option>Last 1 Day</option> <option>Last 2 Days</option> <option>Last 3 Days</option> <option>Last 4 Days</option> <option>Last 5 Days</option> <option>Last 6 Days</option> <option>Last 7 Days</option> </select> </div> <!--menu for Month--> <div class="dropdownValue noMargin menu-month2" style="display:none;"> <span class="dropHeading">Select Month</span> <select class="dropdown"> <option>Select</option> <option>Last 1 Month</option> <option>Last 2 Months</option> <option>Last 3 Months</option> <option>Last 4 Months</option> <option>Last 5 Months</option> <option>Last 6 Months</option> </select> </div> </div> <div class="campGraphVal"><!-- <img alt="" src="images/graphtwo.jpg"> --> <div class="campGraph" style="height: 256px; margin: 0 25px; width:1220px;"></div> </div> </div> </div>
+
+
+<div class="graph-container allCamp"> <div class="graph-container-head"> <div class="graph-head-left"><h4>All Campaigns</h4></div> <div class="graph-head-right"> <div class="refresh"> <i></i> </div> <div class="setting-gp"> <i></i> </div> <div class="delete"> <i></i> </div> </div> </div> <div class="user-section"> <!--"less-width" applied just for hierarchy--> <div class="less-width"> <div class="left-section left-section-camp"> <h6>Location</h6> <div class="border-bottom"> <div class="location-search"> <div class="dropdownValue noBmargin"> <span class="dropHeading">Select Location</span> <select class="dropdown"> <option>Select</option> <option>1st Floor</option> <option>2nd Floor</option> <option>3rd Floor</option> <option>4th Floor</option> </select> </div> <div class="loc-search-input"><input type="text" placeholder="Search Location"><i></i></div> </div> </div> <ul class="camp-detail"> <li class=" odd"><h3>6</h3><span>Hourly Campaigns</span></li> <li class="even"><h3>7</h3><span>Hourly Campaigns</span></li> <li class="odd"><h3>12</h3><span>Monthly Campaigns</span></li> <li class="even"><h3>25</h3><span>Total Campaigns</span></li> </ul> <ul class="user-option"> <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li> <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li> <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li> </ul> </div> </div> <!--"less-width" applied just for hierarchy--> <div class="left-section camp-time-info"> <h6>All Campaigns</h6> <div class="location-search"> <div class="dropdownValue noBmargin"> <span class="dropHeading">Select Campaigns</span> <select class="dropdown"> <option>Select</option> <option>Hourly Campaigns</option> <option>Hourly Campaigns</option> <option>Monthly Campaigns</option> <option>Total Campaigns</option> </select> </div> <div class="loc-search-input"><input type="text" placeholder="Search Campaigns" data-search="2"><i></i></div> </div> <div class="allUserType all-campaigns"> <div class="user-camp-det" item-container> <div class="left-camp-del" > <span data-items="2">Beer Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a> <p>02/04/2015 - 01/05/2015 </p> <ul class="map-list"> <li><p>Bar</p></li> </ul> </div> <div class="right-camp-del" > <p><strong>67</strong> Views</p> <span>6 pm to 11:30 pm</span> <ul class="week"> <li>T</li> <li>Th</li> <li>F</li> </ul> </div> </div> <div class="user-camp-det" item-container> <div class="left-camp-del"> <span data-items="2">Masquerade Ball</span><a class="edit-icon" href="javascript:void(0);"><i></i></a> <p>02/04/2015 - 01/05/2015 </p> <ul class="map-list"> <li><p>Ballroom</p></li> </ul> </div> <div class="right-camp-del"> <p><strong>67</strong> Views</p> <span>9 pm to 12 pm</span> <ul class="week"> <li>M</li> <li>Th</li> <li>F</li> </ul> </div> </div> <div class="user-camp-det" item-container> <div class="left-camp-del"> <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a> <p>02/04/2015 - 01/05/2015 </p> <ul class="map-list"> <li><p>West Veranda</p></li> </ul> </div> <div class="right-camp-del"> <p><strong>67</strong> Views</p> <span>6 pm to 9 pm</span> <ul class="week"> <li>T</li> <li>Th</li> <li>F</li> </ul> </div> </div> <div class="user-camp-det" item-container> <div class="left-camp-del"> <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a> <p>02/04/2015 - 01/05/2015 </p> <ul class="map-list"> <li><p>West Veranda</p></li> </ul> </div> <div class="right-camp-del"> <p><strong>67</strong> Views</p> <span>6 pm to 9 pm</span> <ul class="week"> <li>T</li> <li>Th</li> <li>F</li> </ul> </div> </div> <div class="user-camp-det" item-container> <div class="left-camp-del"> <span data-items="2">BBQ Fest</span><a class="edit-icon" href="javascript:void(0);"><i></i></a> <p>02/04/2015 - 01/05/2015 </p> <ul class="map-list"> <li><p>West Veranda</p></li> </ul> </div> <div class="right-camp-del"> <p><strong>67</strong> Views</p> <span>6 pm to 9 pm</span> <ul class="week"> <li>T</li> <li>Th</li> <li>F</li> </ul> </div> </div> </div> </div> <div class="right-section camp-graph"> <div class="right-top"> <div class="personal-del"> <div class="user-pic"> <div class="user-pic-in"><img src="images/user-icn.png"></div> <div class="user-state">Active</div> <div class="user-pic-del"><h5 data-campaignName="">Masquerade Ball</h5><a class="edit-icon" href="javascript:void(0);"><i></i></a> <ul class="map-list"> <li><p data-campaignLocation="">Ballroom</p></li> </ul> </div> </div> </div> <div class="top-right"> <p>4 days remaining</p> </div> </div> <div class="loc-detail"> <h6>Campaign Views</h6> <div class="campGraphVal"> <!-- <img src="images/camp-map.jpg" alt=""> --> <div class="campaign-views" style="width: 300px; height: 150px; margin: 0 auto"></div> </div> </div> </div> <div class="campLocation"> <h6>Locations</h6> <div class="loc-section location-section"> <ul class="map-list"> <li><p>Lobby - Reception Desk</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>2nd floor - Ballroom</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>3th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>4th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li> <li><p>3th floor - Bar</p><span>02/04/2015 - 01/05/2015 </span></li> </ul> </div> </div> </div> </div>
+</div>
+<div class="overlay"></div>
+</body>
+</html>

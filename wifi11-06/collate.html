@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--head starts-->
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title></title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/jquery.fancybox.css" />
+        <link rel="stylesheet" href="css/jquery-ui.css" />
+        <link rel="stylesheet" href="css/owl.carousel.css" />
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/highcharts.js"></script>
+        <script src="js/jquery.selectbox-2.js"></script>
+        <script src="js/custom-radio-check.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/jquery.fancybox.js"></script>
+        <script src="js/d3/d3.v3.min.js" charset="utf-8"></script>
+        <script src="js/jquery.selectBoxIt.min.js"></script>
+        <script src="js/d3/sankey.js"></script>
+        <script src="js/circles.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/collateScript.js"></script>
+        <style>
+            .node rect {
+                cursor: move;
+                fill-opacity: .9;
+                shape-rendering: crispEdges;
+            }
+            .node text {
+                pointer-events: none;
+                text-shadow: 0 1px 0 #fff;
+            }
+            .link {
+                fill: none;
+                stroke: #a6a6a6;
+                stroke-opacity: .2;
+            }
+            .link:hover {
+                stroke-opacity: .5;
+            }
+            .userpath-list .path2:first-child{
+                /*  display:none; */
+                text-align: center;
+            }
+            /* body {
+              font-family: 'Open Sans', sans-serif;
+              font-size: 12px;
+              font-weight: 400;
+              background-color: #fff;
+              width: 680px;
+              height: 800px;
+              margin-top: 10px;
+            } */
+
+            #main {
+                float: left;
+                width: 650px;
+                height: 335px;
+            }
+            #sidebar {
+                float: right;
+                width: 100px;
+            }
+            #sequence {
+                width: 600px;
+                height: 0px;
+            }
+            #legend {
+                padding: 10px 0 0 3px;
+            }
+            #sequence text, #legend text {
+                font-weight: 600;
+                fill: #fff;
+            }
+            #chart {
+                position: relative;
+                height: 415px;
+                margin-bottom: 28px;
+                left: 200px;
+                overflow: hidden;
+                top:-100px
+            }
+            #chart svg {
+                -ms-transform: rotate(-90deg); /* IE 9 */
+                -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+                transform: rotate(-90deg);
+            }
+            #chart path {
+                stroke: #fff!important;
+            }
+            #explanation {
+                position: absolute;
+                top: 235px;
+                left: 205px;
+                width: 140px;
+                text-align: center;
+                color: #666;
+                z-index: -1;
+            }
+            #percentage {
+                font-size: 2.5em;
+            }
+            /*--sankey chart hover--*/
+            /* #distribMatrix svg path:hover {
+                fill: #56c3b0;
+            }
+            #distribMatrix svg rect{
+                fill: #7e7e7e;
+            } */
+            /* #distribMatrix svg path:not([fill-opacity='0.6'])
+                {
+                     fill: #56c3b0;
+                }
+            #distribMatrix svg rect:not([fill-opacity='0.8']){
+                    fill: #526bad;
+            } */
+        </style>
+    </head>
+    <!--head ends-->
+    <body>
+        <!--Header starts-->
+        <header>
+            <!--header-left start-->
+            <div class="header-left">
+                <div class="menu-icon"> <i></i>
+                    <ul class="menu-drop">
+                        <li><a class="menuDash" href="javascript:void(0);"><i></i><span>Dashboard</span></a></li>
+                        <li><a class="menuAnalytic" href="javascript:void(0);"><i></i><span>Analytics</span></a></li>
+                        <li><a class="menuRule" href="javascript:void(0);"><i></i><span>Rule Admin</span></a></li>
+                        <li><a class="menuDevice" href="javascript:void(0);"><i></i><span>Device Management</span></a></li>
+                        <li><a class="menuAction" href="javascript:void(0);"><i></i><span>Action Templates</span></a></li>
+                        <li><a class="menuSystem" href="javascript:void(0);"><i></i><span>System Statistics</span></a></li>
+                        <li><a class="menuSetting" href="javascript:void(0);"><i></i><span>Settings</span></a></li>
+                    </ul>
+                </div>
+                <a class="logo" href="javascript:void(0);"><img src="images/logo.png" alt="logo"></a> </div>
+            <!--header-left ends-->
+            <!--header-right start-->
+            <div class="header-right">
+                <div class="header-search">
+                    <input type="text" id="searchID">
+                    <i class="search-icon"></i></div>
+                <div class="header-user"> <i class="user-icon"></i> <span>Admin</span>
+                    <div class="drop-arrow"> <i></i>
+                        <ul class="admin-drop">
+                            <li><a href="javascript:void(0);">Admin 1</a></li>
+                            <li><a href="javascript:void(0);">Admin 2</a></li>
+                            <li><a href="javascript:void(0);">Admin 3</a></li>
+                            <li><a href="javascript:void(0);">Admin 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="setting"> <i></i>
+                    <ul class="setting-drop">
+                        <li><a href="javascript:void(0);">setting 1</a></li>
+                        <li><a href="javascript:void(0);">setting 2</a></li>
+                        <li><a href="javascript:void(0);">setting 3</a></li>
+                        <li><a href="javascript:void(0);">setting 4</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--header-right ends-->
+        </header>
+        <!--Header endss-->
+        <!--body wrap starts-->
+        <div class="body-wrap">
+            <div class="center-area">
+            	<!--Refine area starts-->
+                <div class="refineAll">
+                    <div class="refine-drop">
+                        <span>Refine</span><i></i>
+                    </div> 
+                    <div class="refineContainer global">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>12am - 7pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button class="clr-btn" type="submit">Clear List</button>
+                            <button class="blue-pop-btn go" type="submit">Go</button>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+                
+                <ul class="refinelistOption">
+                	<li class="active"><i class="listOne"></i></li>
+                    <li><i class="listTwo"></i></li>
+                </ul>
+                
+                <div class="graph-container">
+                    <div class="graph-container-head">
+                        <div class="graph-head-left">
+                            <h4>User Path Funnel</h4>
+                        </div>
+                        <div class="graph-head-right">
+                            <div class="refresh"> <i></i> </div>
+                            <div class="setting-gp"> <i></i> </div>
+                            <div class="delete"> <i></i> </div>
+                        </div>
+                    </div>
+                    <div class="refineContainer">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button type="submit" class="clr-btn">Clear List</button>
+                            <button type="submit" class="blue-pop-btn go">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campGraphVal userGraph refineuserGraph" style="width:100%;">                        
+                        <img alt="" src="images/user-path.jpg">                        
+                   </div>
+                 </div>
+                
+                <div class="graph-container">
+                    <div class="graph-container-head">
+                        <div class="graph-head-left">
+                            <h4>Path Distribution</h4>
+                        </div>
+                        <div class="graph-head-right">
+                            <div class="refresh"> <i></i> </div>
+                            <div class="setting-gp"> <i></i> </div>
+                            <div class="delete"> <i></i> </div>
+                        </div>
+                    </div>
+                    <div class="refineContainer">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button type="submit" class="clr-btn">Clear List</button>
+                            <button type="submit" class="blue-pop-btn go">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campGraphVal fullWidth">
+                    	<div class="graphArea">
+                            <!-- <img alt="" src="images/dash.jpg"> -->
+                            <div class="graph-parent" style="float:left;width:436px;text-align: center;">
+                                <h5>3/2/2015 07:15 AM  - 3/6/2015 12:30 PM </h5>
+                            <div class=" refine-path-dist"></div>
+                            </div>
+                            <div class="graph-parent" style="float:left;width:440px;text-align: center;">
+                                <h5>3/2/2015 07:15 AM  - 3/6/2015 12:30 PM </h5>
+                           <div class=" refine-path-dist"></div>
+                            </div>
+                            
+                        </div>                      
+                        <div class="graphDetail">
+                        	<div class="graphSection">
+                            	<div class="variationVal">
+                                	<h5>+20% <i class="incVal"></i></h5>
+                                </div>
+                            	<h5>Lobby-Convention-West</h5>
+                                <p>3/2/2015 07:15 AM  - 3/6/2015 12:30 PM </p>
+                                <ul class="graphRefineDel">
+                                    <li><span>Repeat Users</span><i>55</i></li>
+                                    <li><span>Golds Users</span><i>35</i></li>
+                                </ul>
+                                <ul class="refineUserOption">
+                                    <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li>
+                                    <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li>
+                                    <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="graphSection noBorder">
+                            	<div class="variationVal">
+                                	<h5>+20% <i class="decVal"></i></h5>
+                                </div>
+                            	<h5>Bar - Patio</h5>
+                                <p>3/2/2015 07:15 AM  - 3/6/2015 12:30 PM</p>
+                                <ul class="graphRefineDel">
+                                    <li><span>Repeat Users</span><i>49</i></li>
+                                    <li><span>Golds Users</span><i>27</i></li>
+                                </ul>
+                                <ul class="refineUserOption">
+                                    <li class="create"><a href="javascript:void(0);"><i></i><span>Create Rule</span></a></li>
+                                    <li class="promo"><a href="javascript:void(0);"><i></i><span>Launch Promotion</span></a></li>
+                                    <li class="contact"><a href="javascript:void(0);"><i></i><span>Contact Venue</span></a></li>
+                                </ul>
+                            </div>
+                        </div> 
+                   </div>
+                 </div>
+                
+                <div class="graph-container">
+                    <div class="graph-container-head">
+                        <div class="graph-head-left">
+                            <h4>Repeat Users</h4>
+                        </div>
+                        <div class="graph-head-right">
+                            <div class="refresh"> <i></i> </div>
+                            <div class="setting-gp"> <i></i> </div>
+                            <div class="delete"> <i></i> </div>
+                        </div>
+                    </div>
+                    <div class="refineContainer">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button type="submit" class="clr-btn">Clear List</button>
+                            <button type="submit" class="blue-pop-btn go">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campGraphVal userGraph">                        
+                        <img alt="" src="images/chart3.jpg">                        
+                   </div>
+                 </div>
+                
+                <div class="graph-container">
+                    <div class="graph-container-head">
+                        <div class="graph-head-left">
+                            <h4>Path Distribution</h4>
+                        </div>
+                        <div class="graph-head-right">
+                            <div class="refresh"> <i></i> </div>
+                            <div class="setting-gp"> <i></i> </div>
+                            <div class="delete"> <i></i> </div>
+                        </div>
+                    </div>
+                    <div class="refineContainer">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button type="submit" class="clr-btn">Clear List</button>
+                            <button type="submit" class="blue-pop-btn go">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="graph-content-right">
+                        <div class="dropdownValue noMargin">
+                            <span class="dropHeading">Select Hours</span>
+                            <select class="dropdown sb_active" sb="81952943" style="display: none;">
+                                <option>Select</option>
+                                <option>Top Campaigns</option>
+                                <option>Gold Customers</option>
+                                <option>Ending Soon</option>
+                            </select><div id="sbHolder_81952943" class="sbHolder" tabindex="0"><a id="sbToggle_81952943" href="#" class="sbToggle"></a><a id="sbSelector_81952943" href="#" class="sbSelector" title="Select">Select</a><ul id="sbOptions_81952943" class="sbOptions" style="max-height: 385px; top: 23px; display: none;"><li class=""><a href="#Select" rel="Select" class="sbOptionActive">Select</a></li><li class=""><a href="#Top Campaigns" rel="Top Campaigns">Top Campaigns</a></li><li class=""><a href="#Gold Customers" rel="Gold Customers">Gold Customers</a></li><li class=""><a href="#Ending Soon" rel="Ending Soon">Ending Soon</a></li></ul></div>                                    
+                        </div>
+                        <div class="dropdownValue noMargin">
+                            <span class="dropHeading">All Campaigns</span>
+                            <select class="dropdown sb_active" sb="88118591" style="display: none;">
+                                <option>Select</option>
+                                <option>Hourly Campaigns</option>
+                                <option>Hourly Campaigns</option>
+                                <option>Monthly Campaigns</option>
+                                <option>Total Campaigns</option>
+                            </select><div id="sbHolder_88118591" class="sbHolder" tabindex="0"><a id="sbToggle_88118591" href="#" class="sbToggle"></a><a id="sbSelector_88118591" href="#" class="sbSelector" title="Select">Select</a><ul id="sbOptions_88118591" class="sbOptions" style="max-height: 385px; top: 23px; display: none;"><li class=""><a href="#Select" rel="Select" class="sbOptionActive">Select</a></li><li class=""><a href="#Hourly Campaigns" rel="Hourly Campaigns">Hourly Campaigns</a></li><li class=""><a href="#Hourly Campaigns" rel="Hourly Campaigns">Hourly Campaigns</a></li><li class=""><a href="#Monthly Campaigns" rel="Monthly Campaigns">Monthly Campaigns</a></li><li class=""><a href="#Total Campaigns" rel="Total Campaigns">Total Campaigns</a></li></ul></div>                                    
+                        </div>
+                    </div>
+                    <div class="campGraphVal userGraph">                        
+                        <img alt="" src="images/hyatt1.jpg">                        
+                        <img alt="" src="images/hyatt2.jpg">                        
+                   </div>
+                 </div>
+                
+                <div class="graph-container">
+                    <div class="graph-container-head">
+                        <div class="graph-head-left">
+                            <h4>Heat Map Cluster</h4>
+                        </div>
+                        <div class="graph-head-right">
+                            <div class="refresh"> <i></i> </div>
+                            <div class="setting-gp"> <i></i> </div>
+                            <div class="delete"> <i></i> </div>
+                        </div>
+                    </div>
+                    <div class="refineContainer">
+                        <div class="refineOptions">
+                            <div class="refineDate">
+                              <span class="floatL">Select Date</span>
+                              <div class="datepicker-parent refinePicker">
+                                <input type="text" value="06/01/2015" class="datepicker" />
+                              </div>                  
+                            </div>
+                            <div class="refineTime">
+                              <span class="floatL">Select Time Range</span><span class="slider-value floatR">12am - 7pm</span>
+                              <div class="slider"><div class="slider-rangeperiod"><span>12am</span><span class="floatR">12pm</span></div></div>                              
+                            </div>
+                            <div class="refineLoc">
+                            	<div class="dropdownValue">
+                                    <span class="dropHeading">Select Location</span>
+                                    <select class="dropdown">
+                                        <option>Select</option>
+                                        <option>Hyatt Regency</option>
+                                        <option>Lobby</option>
+                                        <option>Kitchen</option>
+                                    </select>                                    
+                                 </div>
+                            </div>
+                            <div class="refinePlus">
+                            	<h5><i></i>Add Comparison</h5>
+                            </div>
+                        </div>
+                        <div class="refineList">
+                        	<div class="refineListSection floatL">
+                            	<div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                                <div class="refineOption ">
+                                	<div class="refineOptionTxt floatL">
+                                    	<h3>Hyatt Regency</h3>
+                                        <p>Dallas, Texas</p>
+                                        <span>2am -3pm</span>
+                                    </div>
+                                    <div class="refineOptionIcon floatR">
+                                    	<i class="edit"></i>
+                                        <i class="close"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refineListBtn floatR">
+                            <button type="submit" class="clr-btn">Clear List</button>
+                            <button type="submit" class="blue-pop-btn go">Go</button>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="campGraphVal userGraph">                        
+                        <img alt="" src="images/heatchrt1.jpg">                        
+                        <img alt="" src="images/heatchrt2.jpg">                    
+                   </div>
+                 </div>
+                
+                <!--graph area ends-->
+                <div class="clear"></div>
+            </div>
+        </div>
+        <script src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            var flag = 0;//used to switch between dummy models in path distribution
+            var loc = "Lobby 18%";
+            $(function () {
+                /*--datepicker (start)--*/
+       
+                $(".datepicker-parent .from").datepicker({
+                    changeYear: true,
+                    changeMonth: true,
+                      beforeShow: function (input, inst) {
+                            setTimeout(function () {
+                                var widget = $(inst).datepicker('widget');
+                                    widget.css({
+                                    'margin-left': "-7px",
+                                    'margin-top':3
+                                    });
+                            }, 10);
+                    },
+                    onSelect: function () {
+                        var max = $(this).datepicker("getDate");
+                        $(this).closest(".graph-container").find(".datepicker-parent .to").datepicker("option", "minDate", max);
+                        updateWid($(this));
+                    }
+                });
+                $(".datepicker-parent .to").datepicker({
+                    changeYear: true,
+                    changeMonth: true,
+                     beforeShow: function (input, inst) {
+                            setTimeout(function () {
+                                var widget = $(inst).datepicker('widget');
+                                    widget.css({
+                                    'margin-left': "-7px",
+                                    'margin-top':3
+                                    });
+                            }, 10);
+                    },
+                    onSelect: function () {
+                        var min = $(this).datepicker("getDate");
+                        $(this).closest(".graph-container").find(".datepicker-parent .from").datepicker("option", "maxDate", min);
+                        updateWid($(this));
+                    }
+                });
+                /*--datepicker (end)--*/
+
+                $("select").on("change", function () {
+                   // $(".distrib-matrix-list li").removeClass("active");
+                    updateWid($(this));
+                });
+
+                $(".location-filter").on("change", function () {
+                    var loc = $(this).find("option:selected").attr("data-loc");
+                    var per = $(this).find("option:selected").attr("data-percentage");
+                    $(".sunburst-overlap span:eq(0)").text(loc);
+                    $(".sunburst-overlap span:eq(1)").text(per);
+                    updateWid($(this));
+                    $(".path-list li.active").trigger("click");
+                });
+
+                function updateWid(x) {//update visualizations
+                    $this = x;
+                   // x.closest(".graph-container").find(".path-list li").removeClass("active");
+                    if ($this.closest(".graph-container").find(".dwell-time-cluster").length) {
+                        var chart = $this.closest(".graph-container").find(".dwell-time-cluster").highcharts();
+                        updateCharts();
+                    } else if ($this.closest(".graph-container").find(".user_count_cluster").length) {
+                        var chart = $this.closest(".graph-container").find(".user_count_cluster").highcharts();
+                        updateCharts();
+                    } else if ($this.closest(".graph-container").find(".repeat-users").length) {
+                        var chart = $this.closest(".graph-container").find(".repeat-users").highcharts();
+                        chart.series[0].update({
+                            data: [r(), r(), r(), r(), {y: r(), color: '#4854A6'}]
+                        });
+                        $(".graph-container").find('.last-scene ul').shuffle();
+                        $(".graph-container").find('.customer-stat').shuffle();
+                    } else if ($this.closest(".graph-container").find("#heatChart").length) {
+                        for (var i = 1; i <= 18; i++) {//update heat chart with random data
+                            nodes.update({
+                                id: i,
+                                radius: Math.floor((Math.random() * 30) + 10)
+                            });
+
+                        }
+
+
+                    } else if ($this.closest(".graph-container").find(".distribMatrix").length) {
+
+                        d3.select(".distribMatrix").select("svg").remove();
+
+                        if (flag == 0) {
+                            energy = sankeyData1;
+                            flag = 1;
+                        } else {
+                            energy = sankeyData;
+                            flag = 0;
+                        }
+
+                         margin = {top: 1, right: 1, bottom: 6, left: 1},
+                        width = 900 - margin.left - margin.right,
+                         height = 300 - margin.top - margin.bottom;
+
+                        formatNumber = d3.format(",.0f"),
+                    format = function (d) {
+                        return formatNumber(d);
+                    },
+                    color = d3.scale.category20();
+
+
+            sankey = d3.sankey()
+                                .nodeWidth(15)
+                                .nodePadding(10)
+                                .size([600, 350]);
+
+            path = sankey.link();
+
+
+                     sankey
+                    .nodes(energy.nodes)
+                                .links(energy.links)
+                                .layout(32);
+
+                        sankeyupdate(sankey);
+
+                    } else if ($this.closest(".graph-container").find("#chart").length) {
+
+                        var path = d3.select("#chart").selectAll("path");
+                        path.data(partition.nodes(getData1()))
+                                .transition()
+                                .duration(750)
+                                .attrTween("d", arcTween(getData1()));
+
+                    } else if ($this.closest(".graph-container").find(".path-distrib").length) {
+                        if (flag == 0) {
+                            root = treeData1[0];
+                            flag = 1;
+                        } else {
+                            root = treeData[0];
+                            flag = 0;
+                        }
+                        root.x0 = height / 2;
+                        root.y0 = 0;
+                        //$('.path-distrib-list li.active').removeClass('active');
+                        update(root);
+                    } else if ($(this).closest(".graph-container").find(".path-distrib").length) {
+                        if (flag == 0) {
+                            root = treeData1[0];
+                            flag = 1;
+                        } else {
+                            root = treeData[0];
+                            flag = 0;
+                        }
+
+                        root.x0 = height / 2;
+                        root.y0 = 0;
+                        update(root);
+                    }
+
+                    function r() {//putting random values (for demo purpose)
+                        return Math.floor((Math.random() * 250) + 1);
+                    }
+
+                    function updateCharts() {
+                        if(chart.container.className=="highcharts-container"){
+                            chart.series[0].update({
+                            data: [r(), r(), r(), r(), r(), r(), r(), r(), r(), r()]
+                        });
+                        }else{
+                            chart.series[0].update({
+                            data: [r(), r(), r(), r(), r(), r(), r(), r(), r(), r(), r()]
+                        });
+                        }
+                        
+                    }
+
+                }
+
+
+
+
+            });
+
+
+            /*-- chart for distribution matrix(start)--*/
+
+
+
+            var sankeyData = {"nodes": [
+                    {"name": "Lobby"},
+                    {"name": "CLARA-FL09"},
+                    {"name": "Conf FI-01"},
+                    {"name": "Suchi"},
+                    {"name": "Kitchen"},
+                    {"name": "Front Entrance"},
+                    {"name": "Conf FI-03"}
+                ],
+                "links": [
+                    {"source": 0, "target": 2, "value": 20},
+                    {"source": 0, "target": 6, "value": 20},
+                    {"source": 0, "target": 4, "value": 10},
+                    {"source": 4, "target": 6, "value": 15},
+                    {"source": 1, "target": 3, "value": 5},
+                    {"source": 1, "target": 4, "value": 4},
+                    {"source": 2, "target": 6, "value": 14},
+                    {"source": 3, "target": 2, "value": 24},
+                    {"source": 3, "target": 5, "value": 24},
+                ]}
+
+
+
+                 var sankeyData1 = {"nodes": [
+                        {"name": "Lobby"},
+                        {"name": "Front Entrance"},
+                        {"name": "10 CLARA-FL09"},
+                        {"name": "5 Suchi"},
+                        {"name": "10 Kitchen"},
+                        {"name": "CLARA-FL09"},
+                        {"name": "Conf FI-03"},
+                        {"name": "Conf FI-01"}
+                    ],
+                    "links": [
+                        {"source": 0, "target": 2, "value": 5},
+                        {"source": 0, "target": 6, "value": 5},
+                        {"source": 0, "target": 4, "value": 7},
+                        {"source": 4, "target": 7, "value": 9},
+                        {"source": 4, "target": 5, "value": 4},
+                        {"source": 1, "target": 2, "value": 1},
+                        {"source": 1, "target": 4, "value": 4},
+                        {"source": 1, "target": 3, "value": 4}
+                    ]};
+
+            var margin = {top: 1, right: 1, bottom: 6, left: 1},
+            width = 900 - margin.left - margin.right,
+                    height = 300 - margin.top - margin.bottom;
+
+            var formatNumber = d3.format(",.0f"),
+                    format = function (d) {
+                        return formatNumber(d);
+                    },
+                    color = d3.scale.category20();
+
+
+            var sankey = d3.sankey()
+                    .nodeWidth(15)
+                    .nodePadding(10)
+                    .size([600, 350]);
+
+            var path = sankey.link();
+            var energy;
+            energy = sankeyData;
+
+            sankey
+                    .nodes(energy.nodes)
+                    .links(energy.links)
+                    .layout(32);
+
+            sankeyupdate(sankey);
+
+            function sankeyupdate(sankey) {
+                var width = 900;
+                var height = 350;
+                d3.select(".distribMatrix").select("svg").remove();
+                var svg = d3.select(".distribMatrix").append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .attr("padding", 5)
+                        .append("g")
+                        .attr("transform", "translate(1,1)");
+
+
+                var link = svg.append("g").selectAll(".link")
+                        .data(energy.links)
+                        .enter().append("path").attr("data-id", function (d) {
+                    return d.source.name;
+                })
+                        .attr("class", "link")
+                        .attr("d", path)
+                        .style("stroke-width", function (d) {
+                            return Math.max(1, d.dy);
+                        })
+                //.sort(function(a, b) { return b.dy - a.dy; });
+
+                link.append("title")
+                        .text(function (d) {
+                            return d.source.name + "  " + d.target.name + "\n" + format(d.value);
+                        });
+
+                var node = svg.append("g").selectAll(".node")
+                        .data(energy.nodes)
+                        .enter().append("g")
+                        .attr("class", "node")
+                        .attr("transform", function (d) {
+                            return "translate(" + d.x + "," + d.y + ")";
+                        })
+                        .call(d3.behavior.drag()
+                                .origin(function (d) {
+                                    return d;
+                                })
+                                .on("dragstart", function (d) {
+                                    this.parentNode.appendChild(this);
+                                })
+                                .on("drag", dragmove));
+
+                node.append("rect")
+                        .attr("height", function (d) {
+                            return d.dy;
+                        })
+                        .attr("width", sankey.nodeWidth())
+                        .attr("data-id", function (d) {
+                            return d.name;
+                        })
+                        .style("fill", "#7e7e7e")
+                        .style("stroke", "#7e7e7e")
+                        .append("title")
+                        .text(function (d) {
+                            return d.name + "\n" + format(d.value);
+                        });
+
+                node.append("text")
+                        .attr("x", -6)
+                        .attr("y", function (d) {
+                            return d.dy / 2;
+                        })
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "end")
+                        .attr("transform", null)
+                        .text(function (d) {
+                            return d.name;
+                        })
+                        .filter(function (d) {
+                            return d.x < width / 2;
+                        })
+                        .attr("x", 6 + sankey.nodeWidth())
+                        .attr("text-anchor", "start");
+
+                function dragmove(d) {
+//                    if (d3.event.y > 178) {
+//                        d3.event.y = 178;
+//                    }
+                    d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+                    sankey.relayout();
+                    link.attr("d", path);
+                }
+
+                 setTimeout(function(){
+                    $(".distrib-matrix-list li.active").trigger("click");
+                },100);
+            }
+
+
+            /*-- chart for distribution matrix(stop)--*/
+
+
+
+
+
+
+
+            /*--sunburst chart (start)--*/
+
+            // Dimensions of sunburst.
+            var width = 700;
+            var height = 700;
+            var radius = Math.min(width, height) / 2;
+
+            // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
+            var b = {
+                w: 75, h: 30, s: 3, t: 10
+            };
+
+            var x = d3.scale.linear()
+                    .range([0, 2 * Math.PI]);
+
+            var y = d3.scale.sqrt()
+                    .range([0, radius]);
+
+
+
+            // make `colors` an ordinal scale
+            var colors = d3.scale.category20();
+
+            var uniqueData;
+
+            // Total size of all segments; we set this later, after loading the data.
+            var totalSize = 0;
+            var visual = d3.select("#chart").append("svg:svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .append("svg:g")
+                    .attr("id", "container")
+                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            var partition = d3.layout.partition()
+                    .size([Math.PI, 100])
+                    .value(function (d) {
+                        return d.size;
+                    });
+
+            var arc = d3.svg.arc()
+                    .startAngle(function (d) {
+                        return d.x;
+                    })
+                    .endAngle(function (d) {
+                        return d.x + d.dx;
+                    })
+                    .innerRadius(function (d) {
+                        var rad = radius * (d.y) * (d.y) / 10000 * 1;
+                        if (d.depth == 1)
+                            return 0;
+
+
+                        return (radius * Math.sqrt(d.y) / 6) - 280;
+                    })
+                    .outerRadius(function (d) {
+                        //     console.log(d.y);
+                        // console.log(d.dy);
+                        return (radius * Math.sqrt(d.y + d.dy) / 6) - 280;
+                    });
+
+            // Use d3.csv.parseRows so that we do not need to have a header
+            // row, and can receive the csv as an array of arrays.
+
+            //var text = getText();
+            //var csv = d3.csv.parseRows(text);
+            //var json = buildHierarchy(csv);
+            var json = getData();
+            createVisualization(json);
+
+            // Main function to draw and set up the visualization, once we have the data.
+            function createVisualization(json) {
+
+                // Basic setup of page elements.
+                //initializeBreadcrumbTrail();
+
+
+                // Bounding circle underneath the sunburst, to make it easier to detect
+                // when the mouse leaves the parent g.
+                visual.append("svg:circle")
+                        .attr("r", radius)
+                        .style("opacity", 0);
+
+                // For efficiency, filter nodes to keep only those large enough to see.
+                var nodes = partition.nodes(json)
+                        .filter(function (d) {
+                            return (d.dx > 0.005); // 0.005 radians = 0.29 degrees
+                        });
+
+                var uniqueNames = (function (a) {
+                    var output = [];
+                    a.forEach(function (d) {
+                        if (output.indexOf(d.name) === -1) {
+                            output.push(d.name);
+                        }
+                    });
+                    return output;
+                })(nodes);
+
+
+                uniqueData = (function (a) {
+                    var name = [];
+                    var dataOutput = [];
+                    a.forEach(function (d) {
+                        if (name.indexOf(d.name) === -1) {
+                            name.push(d.name);
+                            dataOutput.push(d);
+                        }
+                    });
+                    return dataOutput;
+                })(nodes);
+
+
+
+                // set domain of colors scale based on data
+                colors.domain(uniqueNames);
+
+                // make sure this is done after setting the domain
+                drawLegend();
+
+                //tooltip
+
+                var tooltip = d3.select("body")
+                        .append("div")
+                        .attr("class", "sunburst-tooltip")
+                        .style("position", "absolute")
+                        .style("z-index", "10")
+                        .style("visibility", "hidden")
+                        .text("");
+
+                var sequenceArray;
+
+                var path = visual.data([json]).selectAll("path")
+                        .data(nodes)
+                        .enter().append("svg:path")
+                        .attr("data-id", function (d) {
+                            return d.name;
+                        })
+                        .attr("display", function (d) {
+                            return d.depth ? null : "none";
+                        })
+                        .attr("d", arc)
+                        .attr("fill-rule", "evenodd")
+                        .style("fill", function (d) {
+                            return d.color;
+
+                        })
+                        .style("opacity", 1)
+                        .on("mouseenter", mouseover).
+                        on("mousemove", function (d) {
+                            sequenceArray = getAncestors(d);
+                        })
+                        .on("mouseleave", function (e) {
+                            $(".matrix-tooltip").css("visibility", "hidden");
+                        });
+
+                path.each(function () {
+                    $(this).mousemove(function (e) {
+                        var tooltipText = "";
+                        for (var i = sequenceArray.length - 1; i >= 0; i--) {
+                            tooltipText += '<li style="color:' + sequenceArray[i].color + '"><span>' + sequenceArray[i].name + '</span><span>' + sequenceArray[i].value + '</span></li>';
+                        }
+
+                        //     console.log(e.x);
+                        // console.log(event.pageY);
+
+                        //console.log(tooltipText);
+                        $(".matrix-tooltip ul").html(tooltipText);
+                        //return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+                        $(".matrix-tooltip").css({"top": (e.pageY - 35) + "px", "left": (e.pageX + 30) + "px"});
+                    });
+                });
+
+
+
+
+
+
+                // Add the mouseleave handler to the bounding circle.
+                d3.select("#container").on("mouseleave", mouseleave);
+                // Get total size of the tree = value of root node from partition.
+                totalSize = path.node().__data__.value;
+            }
+            ;
+
+            // Fade all but the current sequence, and show it in the breadcrumb trail.
+            function mouseover(d) {
+                $(".matrix-tooltip").css("visibility", "visible");
+                var percentage = (100 * d.value / totalSize).toPrecision(3);
+                var percentageString = percentage + "%";
+                if (percentage < 0.1) {
+                    percentageString = "< 0.1%";
+                }
+
+                d3.select("#percentage")
+                        .text(percentageString);
+
+                d3.select("#explanation")
+                        .style("visibility", "");
+
+                var sequenceArray = getAncestors(d);
+                // updateBreadcrumbs(sequenceArray, percentageString);
+
+                // Fade all the segments.
+                d3.select("#chart").selectAll("path")
+                        .style("opacity", 0.3);
+
+                // Then highlight only those that are an ancestor of the current segment.
+                visual.selectAll("path")
+                        .filter(function (node) {
+                            return (sequenceArray.indexOf(node) >= 0);
+                        })
+                        .style("opacity", 1);
+            }
+
+            // Restore everything to full opacity when moving off the visualization.
+            function mouseleave(d) {
+
+                // Hide the breadcrumb trail
+                d3.select("#trail")
+                        .style("visibility", "hidden");
+
+                // Deactivate all segments during transition.
+                d3.selectAll("path").on("mouseover", null);
+
+                // Transition each segment to full opacity and then reactivate it.
+                d3.selectAll("path")
+                        .transition()
+                        .duration(1000)
+                        .style("opacity", 1)
+                        .each("end", function () {
+                            d3.select(this).on("mouseover", mouseover);
+                        });
+
+                d3.select("#explanation")
+                        .transition()
+                        .duration(1000)
+                        .style("visibility", "hidden");
+            }
+
+            // Given a node in a partition layout, return an array of all of its ancestor
+            // nodes, highest first, but excluding the root.
+            function getAncestors(node) {
+                var path = [];
+                var current = node;
+                while (current.parent) {
+                    path.unshift(current);
+                    current = current.parent;
+                }
+                return path;
+            }
+
+            function initializeBreadcrumbTrail() {
+                // Add the svg area.
+                var trail = d3.select("#sequence").append("svg:svg")
+                        .attr("width", width)
+                        .attr("height", 50)
+                        .attr("id", "trail");
+                // Add the label at the end, for the percentage.
+                trail.append("svg:text")
+                        .attr("id", "endlabel")
+                        .style("fill", "#000");
+            }
+
+            // Generate a string that describes the points of a breadcrumb polygon.
+            function breadcrumbPoints(d, i) {
+                var points = [];
+                points.push("0,0");
+                points.push(b.w + ",0");
+                points.push(b.w + b.t + "," + (b.h / 2));
+                points.push(b.w + "," + b.h);
+                points.push("0," + b.h);
+                if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+                    points.push(b.t + "," + (b.h / 2));
+                }
+                return points.join(" ");
+            }
+
+            // Update the breadcrumb trail to show the current sequence and percentage.
+            function updateBreadcrumbs(nodeArray, percentageString) {
+
+                // Data join; key function combines name and depth (= position in sequence).
+                var g = d3.select("#trail")
+                        .selectAll("g")
+                        .data(nodeArray, function (d) {
+                            return d.name + d.depth;
+                        });
+
+                // Add breadcrumb and label for entering nodes.
+                var entering = g.enter().append("svg:g");
+
+                entering.append("svg:polygon")
+                        .attr("points", breadcrumbPoints)
+                        .style("fill", function (d) {
+                            return colors(d.name);
+                        });
+
+                entering.append("svg:text")
+                        .attr("x", (b.w + b.t) / 2)
+                        .attr("y", b.h / 2)
+                        .attr("dy", "0.35em")
+                        .attr("text-anchor", "middle")
+                        .text(function (d) {
+                            return d.name;
+                        });
+
+                // Set position for entering and updating nodes.
+                g.attr("transform", function (d, i) {
+                    return "translate(" + i * (b.w + b.s) + ", 0)";
+                });
+
+                // Remove exiting nodes.
+                g.exit().remove();
+
+                // Now move and update the percentage at the end.
+                d3.select("#trail").select("#endlabel")
+                        .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+                        .attr("y", b.h / 2)
+                        .attr("dy", "0.35em")
+                        .attr("text-anchor", "middle")
+                        .text(percentageString);
+
+                // Make the breadcrumb trail visible, if it's hidden.
+                d3.select("#trail")
+                        .style("visibility", "");
+
+            }
+
+            function drawLegend() {
+
+                var legend = d3.select(".userpath-list").append("ol")
+
+                var g = legend.selectAll("li")
+                        .data(uniqueData)
+                        .enter().append("li");
+
+                g.append("div")
+                        .attr("class", "path2")
+                        /*  .attr("data-id",function(d) {
+                         return d;
+                         })*/
+                        .style("background", function (d) {
+                            return d.color;
+                        })
+                        .append("a")
+                        .text(function (d) {
+                            return d.name;
+                        })
+
+
+            }
+
+
+            // Take a 2-column CSV and transform it into a hierarchical structure suitable
+            // for a partition layout. The first column is a sequence of step names, from
+            // root to leaf, separated by hyphens. The second column is a count of how 
+            // often that sequence occurred.
+            function buildHierarchy(csv) {
+                var root = {"name": "root", "children": []};
+                for (var i = 0; i < csv.length; i++) {
+                    var sequence = csv[i][0];
+                    var size = +csv[i][1];
+                    if (isNaN(size)) { // e.g. if this is a header row
+                        continue;
+                    }
+                    var parts = sequence.split("-");
+                    var currentNode = root;
+                    for (var j = 0; j < parts.length; j++) {
+                        var children = currentNode["children"];
+                        var nodeName = parts[j];
+                        var childNode;
+                        if (j + 1 < parts.length) {
+                            // Not yet at the end of the sequence; move down the tree.
+                            var foundChild = false;
+                            for (var k = 0; k < children.length; k++) {
+                                if (children[k]["name"] == nodeName) {
+                                    childNode = children[k];
+                                    foundChild = true;
+                                    break;
+                                }
+                            }
+                            // If we don't already have a child node for this branch, create it.
+                            if (!foundChild) {
+                                childNode = {"name": nodeName, "children": []};
+                                children.push(childNode);
+                            }
+                            currentNode = childNode;
+                        } else {
+                            // Reached the end of the sequence; create a leaf node.
+                            childNode = {"name": nodeName, "size": size};
+                            children.push(childNode);
+                        }
+                    }
+                }
+                return root;
+            }
+            ;
+
+            // Interpolate the scales!
+            function arcTween(d) {
+                var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+                        yd = d3.interpolate(y.domain(), [d.y, 1]),
+                        yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+                return function (d, i) {
+                    return i
+                            ? function (t) {
+                                return arc(d);
+                            }
+                    : function (t) {
+                        x.domain(xd(t));
+                        y.domain(yd(t)).range(yr(t));
+                        return arc(d);
+                    };
+                };
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            function rnd() {//putting random values (for demo)
+                return Math.floor((Math.random() * 10) + 10);
+            }
+
+            function getData() {
+                return {
+                    name: "",
+                    color: "",
+                    children: [{
+                            name: "Lobby",
+                            color: "#7f92d7",
+                            size: 100,
+                            children: [
+                                {
+                                    name: "Bar",
+                                    color: "#bfe1c8",
+                                    size: "5"
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#bfe1c8",
+                                    size: "10"
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#bfe1c8",
+                                    size: "10"
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#bfe1c8",
+                                    size: "30"
+                                },
+                                {
+                                    name: "Suchi",
+                                    color: "#FCCF9E",
+                                    size: "35",
+                                    children: [
+                                        {name: "Kitchen", color: "#7BC6D1", size: "18"},
+                                        {name: "Pool-Area", color: "#CCD7FF", size: "17",
+                                            children: [
+                                                {name: "CLARA-FL09", color: "#CC99CC", size: "7"},
+                                                {name: "Front Desk", color: "#E2DF95", size: "10"}
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#bfe1c8",
+                                    size: "10"
+                                }
+                            ]
+                        }]
+
+                }
+
+            };
+
+
+             function getData1() {
+                return {
+                    name: "",
+                    color: "",
+                    children: [{
+                            name: "Lobby",
+                            color: "#7f92d7",
+                            size: rnd(),
+                            children: [
+                                {
+                                    name: "Bar",
+                                    color: "#C4C4C4",
+                                    size: rnd()
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#C4C4C4",
+                                    size: rnd()
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#C4C4C4",
+                                    size: rnd()
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#C4C4C4",
+                                    size: rnd()
+                                },
+                                {
+                                    name: "Suchi",
+                                    color: "#FCCF9E",
+                                    size: rnd(),
+                                    children: [
+                                        {name: "Kitchen", color: "#7BC6D1", size: rnd()},
+                                        {name: "Pool-Area", color: "#CCD7FF", size: rnd(),
+                                            children: [
+                                                {name: "CLARA-FL09", color: "#CC99CC", size: rnd()},
+                                                {name: "Front Desk", color: "#E2DF95", size: rnd()}
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: "Bar",
+                                    color: "#C4C4C4",
+                                    size: rnd()
+                                }
+                            ]
+                        }]
+
+                }
+
+            };
+
+
+            /*$(function(){
+             
+             $(".path2").on("click",function(){  highlight path on legend click 
+             var id = $(this).attr("data-id");
+             
+             var element = d3.select("path[data-id='"+id+"']").data();
+             mouseover(element[0]);
+             
+             });
+             
+             });
+             */
+
+
+
+
+            /*--sunburst chart (end)--*/
+        </script>
+        <!--body wrap ends-->
+        <script src="js/vis/vis.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="js/vis/vis.min.css" />
+        <script>
+
+
+            /*heat chart (start)*/
+
+            var vis;
+
+            // create an array with edges
+            var edges = [
+            ];
+
+            nodes = new vis.DataSet();
+            nodes.add([
+                {id: 4, label: '', title: 'Lobby', radius: 47, color: {background: '#ef3028', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 2, label: '', title: 'CLARA-FL09', radius: 35, color: {background: '#fec871', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 1, label: '', title: 'Front Entrance', radius: 31, color: {background: '#99ede2', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 5, label: '', title: 'Conf FI-03', radius: 35, color: {background: '#fed99f', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 6, label: '', title: 'Kitchen', radius: 10, color: {background: '#cdcdcd', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 7, label: '', title: 'Suchi', radius: 19, color: {background: '#97c5f8', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 8, label: '', title: 'Front Entrance', radius: 19, color: {background: '#99ede2', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 9, label: '', title: 'CLARA-FL09', radius: 16, color: {background: '#def6ff', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 10, label: '', title: 'Conf FI-01', radius: 18, color: {background: '#62b0ff', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 11, label: '', title: 'Conf FI-03', radius: 17, color: {background: '#97c5f8', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 12, label: '', title: 'Kitchen', radius: 22, color: {background: '#a0d96b', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 13, label: '', title: 'Front Entrance', radius: 24, color: {background: '#99ede2', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 14, label: '', title: 'CLARA-FL09', radius: 18, color: {background: '#6bd6fe', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 15, label: '', title: 'Conf FI-01', radius: 25, color: {background: '#a0d96b', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 16, label: '', title: 'Conf FI-01', radius: 18, color: {background: '#6bd6fe', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 17, label: '', title: 'Conf FI-01', radius: 26, color: {background: '#fee764', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 18, label: '', title: 'All Floors', radius: 11, color: {background: '#cdcdcd', border: '#ffe3ca'}, borderWidth: 6},
+                {id: 3, label: '', title: 'Conf FI-01', radius: 21, color: {background: '#a0d96b', border: '#ffe3ca'}, borderWidth: 6}
+            ]);
+
+
+
+            edges = new vis.DataSet();
+
+
+
+            edges.add([
+                {from: 1, to: 2 , length: 43},
+                {from: 1, to: 3 , length: 43},
+                {from: 2, to: 4 , length: 43},
+                {from: 2, to: 6 , length: 43},
+                {from: 3, to: 5 , length: 43},
+                {from: 1, to: 8 , length: 43},
+                {from: 6, to: 12 , length: 43},
+                {from: 3, to: 7 , length: 43},
+                {from: 3, to: 14 , length: 43},
+                {from: 3, to: 6 , length: 43},
+                {from: 7, to: 18 , length: 43},
+                {from: 8, to: 6 , length: 43},
+                {from: 8, to: 11 , length: 43},
+                {from: 9, to: 5 , length: 43},
+                {from: 14, to: 5 , length: 43},
+                {from: 1, to: 5 , length: 43},
+                {from: 13, to: 5 , length: 43},
+                {from: 12, to: 5 , length: 43},
+                {from: 1, to: 5 , length: 43},
+                {from: 1, to: 15 , length: 43},
+                {from: 1, to: 10 , length: 43},
+                {from: 1, to: 7 , length: 43},
+                {from: 1, to: 16 , length: 43},
+                {from: 1, to: 17 , length: 43},
+                {from: 1, to: 18 , length: 43},
+                {from: 4, to: 18 , length: 43}
+            ]);
+
+
+
+
+
+
+
+
+
+
+            // create a network
+            var container = document.getElementById('heatChart');
+            var data = {
+                nodes: nodes,
+                edges: edges
+            };
+            var options = {
+                hover: true,
+                autoResize: true,
+                width:'100%',
+                height:'100%',
+                dragNetwork: false,
+                dragNodes: false,
+                stabilize: true,
+                configurePhysics: false,
+                physics: {barnesHut: {gravitationalConstant: -3875, damping: 0.295}}, smoothCurves: false,
+                nodes: {
+                    color: {
+                        background: '#c2c2c2',
+                        border: '#e5e5e5'
+                    },
+                    shape: 'dot'
+
+                },
+                edges: {
+                    style: 'arrow',
+                    arrowScaleFactor: .4
+                },
+                zoomable: false,
+                tooltip: {
+                    delay: 300,
+                    fontColor: "black",
+                    fontSize: 14, // px
+                    fontFace: "verdana",
+                    color: {
+                        border: "#666",
+                        background: "#FFFFC6"
+                    }
+                }
+            };
+            var network = new vis.Network(container, data, options);
+
+
+
+            /*heat chart (end)*/
+
+            /*--path distribution graph(start)--*/
+
+            var treeData = [
+                {
+                    "id": "Lobby",
+                    "name": "Lobby",
+                    "parent": "null",
+                    "children": [
+                        {
+                            "id": "East Entrance",
+                            "name": "East Entrance",
+                            "parent": "Lobby",
+                            "children": [
+                                {
+                                    "id": "Conf Fl-01",
+                                    "name": "Conf Fl-01",
+                                    "parent": "East Entrance",
+                                    "children": [
+                                        {
+                                            "id": "Kitchen",
+                                            "name": "Kitchen",
+                                            "parent": "Conf Fl-01"
+                                        },
+                                        {
+                                            "id": "CLARA-FL09",
+                                            "name": "CLARA-FL09",
+                                            "parent": "Conf Fl-01",
+                                            "children": [
+                                                {
+                                                    "id": "CLARA-FL10",
+                                                    "name": "CLARA-FL10",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Bar",
+                                                    "name": "Bar",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Patio 2",
+                                                    "name": "Patio 2",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "CLARA-FL06",
+                                                    "name": "CLARA-FL06",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Pool 2",
+                                                    "name": "Pool 2",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Suchi",
+                                                    "name": "Suchi",
+                                                    "parent": "CLARA-FL09"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "Convention-west",
+                            "name": "Convention-west",
+                            "parent": "Lobby"
+
+                        },
+                        {
+                            "id": "Convention-East",
+                            "name": "Convention-East",
+                            "parent": "Lobby",
+                            "children": [
+                                {
+                                    "id": "Patio 1",
+                                    "name": "Patio 1",
+                                    "parent": "Convention-East",
+                                },
+                                {
+                                    "id": "CLARA-FL05",
+                                    "name": "CLARA-FL05",
+                                    "parent": "Convention-East",
+                                },
+                                {
+                                    "id": "Pool 1",
+                                    "name": "Pool 1",
+                                    "parent": "Convention-East",
+                                }
+                            ]
+                        },
+                        {
+                            "id": "Convention-North",
+                            "name": "Convention-North",
+                            "parent": "Lobby"
+                        },
+                        {
+                            "id": "North-Entrance",
+                            "name": "North-Entrance",
+                            "parent": "Lobby"
+                        }
+                    ]
+                }
+            ];
+
+
+
+            var treeData1 = [
+                {
+                    "id": "Lobby Updated",
+                    "name": "Lobby",
+                    "parent": "null",
+                    "children": [
+                        {
+                            "id": "East Entrance Updated",
+                            "name": "East Entrance",
+                            "parent": "Lobby",
+                            "children": [
+                                {
+                                    "id": "Conf Fl-01 Updated",
+                                    "name": "Conf Fl-01",
+                                    "parent": "East Entrance",
+                                    "children": [
+                                        {
+                                            "id": "Kitchen Updated",
+                                            "name": "Kitchen",
+                                            "parent": "Conf Fl-01"
+                                        },
+                                        {
+                                            "id": "CLARA-FL09 Updated",
+                                            "name": "CLARA-FL09",
+                                            "parent": "Conf Fl-01",
+                                            "children": [
+                                                {
+                                                    "id": "CLARA-FL10 Updated",
+                                                    "name": "CLARA-FL10",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Bar Updated",
+                                                    "name": "Bar",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Patio 2 Updated",
+                                                    "name": "Patio 2",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "CLARA-FL06 Updated",
+                                                    "name": "CLARA-FL06",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Pool 2 Updated",
+                                                    "name": "Pool 2",
+                                                    "parent": "CLARA-FL09"
+                                                },
+                                                {
+                                                    "id": "Suchi Updated",
+                                                    "name": "Suchi",
+                                                    "parent": "CLARA-FL09"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "Convention-west Updated",
+                            "name": "Convention-west",
+                            "parent": "Lobby"
+
+                        },
+                        {
+                            "id": "Convention-East Updated",
+                            "name": "Convention-East",
+                            "parent": "Lobby",
+                            "children": [
+                                {
+                                    "id": "Patio 1 Updated",
+                                    "name": "Patio 1",
+                                    "parent": "Convention-East",
+                                },
+                                {
+                                    "id": "CLARA-FL05 Updated",
+                                    "name": "CLARA-FL05",
+                                    "parent": "Convention-East",
+                                },
+                                {
+                                    "id": "Pool 1 Updated",
+                                    "name": "Pool 1",
+                                    "parent": "Convention-East",
+                                }
+                            ]
+                        },
+                        {
+                            "id": "Convention-North Updated",
+                            "name": "Convention-North",
+                            "parent": "Lobby"
+                        },
+                        {
+                            "id": "North-Entrance Updated",
+                            "name": "North-Entrance",
+                            "parent": "Lobby"
+                        }
+                    ]
+                }
+            ];
+
+
+
+
+            // ************** Generate the tree diagram  *****************
+            var margin = {top: 16, right: 120, bottom: 20, left: 120},
+            width = 960 - margin.right - margin.left,
+                    height = 500 - margin.top - margin.bottom;
+
+            var i = 0,
+                    duration = 750,
+                    root;
+
+            var tree = d3.layout.tree()
+                    .size([height, width]);
+
+            var diagonal = d3.svg.diagonal()
+                    .projection(function (d) {
+                        return [d.y, d.x];
+                    });
+
+            var svg = d3.select(".path-distrib").append("svg")
+                    .attr("width", width + margin.right + margin.left)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + (margin.left - 40) + "," + margin.top + ")");
+
+            root = treeData[0];
+            root.x0 = height / 2;
+            root.y0 = 0;
+
+            update(root);
+
+            d3.select(self.frameElement).style("height", "500px");
+
+            function update(source) {
+
+                // Compute the new tree layout.
+                var nodes = tree.nodes(root).reverse(),
+                        links = tree.links(nodes);
+
+                // Normalize for fixed-depth.
+                nodes.forEach(function (d) {
+                    d.y = d.depth * 180;
+                });
+
+                // Update the nodes
+                var node = svg.selectAll("g.node")
+                        .data(nodes, function (d) {
+                            return d.id || (d.id = ++i);
+                        });
+
+                // Enter any new nodes at the parent's previous position.
+                var nodeEnter = node.enter().append("g")
+                        .attr("class", "node")
+                        .attr("transform", function (d) {
+                            return "translate(" + source.y0 + "," + source.x0 + ")";
+                        })
+                        .on("click", click);
+
+                nodeEnter.append("circle").attr("data-id", function (d) {
+                    return d.id;
+                })
+                        .attr("r", 1e-6)
+                        .style("fill", function (d) {
+                             if($(".path-distrib-list li.active").attr("data-path") == d.id){
+                                return "#5667b7";
+                             }else{
+                                return "#7e7e7e";
+                             }
+                            //return d._children ? "#7e7e7e" : "#7e7e7e";
+                        });
+
+                nodeEnter.append("text")
+                        .attr("x", function (d) {
+                            var left = 0;
+                            var right = 0;
+                            if (d.depth == 0) {
+                                left = -20;
+                                right = 13;
+                            }
+                            else if (d.depth == 1) {
+                                left = -16;
+                                right = 14;
+                            }
+                            else if (d.depth == 2) {
+                                left = -10;
+                                right = 10;
+                            }
+                            else if (d.depth == 3) {
+                                left = -10;
+                                right = 8;
+                            }
+                            else if (d.depth == 4) {
+                                left = -20;
+                                right = 8;
+                            }
+
+                            return d.children || d._children ? left : right;
+
+                        })
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", function (d) {
+                            return d.children || d._children ? "end" : "start";
+                        })
+                        .text(function (d) {
+                            return d.name;
+                        })
+                        .style("fill-opacity", 1e-6);
+
+                // Transition nodes to their new position.
+                var nodeUpdate = node.transition()
+                        .duration(duration)
+                        .attr("transform", function (d) {
+                            return "translate(" + d.y + "," + d.x + ")";
+                        });
+
+                nodeUpdate.select("circle")
+                        .attr("r", function (d) {
+                            if (d["depth"] == 0) {
+                                return 15;
+                            } else if (d["depth"] == 1) {
+                                return 10;
+                            } else if (d["depth"] == 2) {
+                                return 5
+                            } else {
+                                return 4;
+                            }
+                        })
+                        .style("fill", function (d) {
+                             if($(".path-distrib-list li.active").attr("data-path") == d.id){
+                                return "#5667b7";
+                             }else{
+                                return "#7e7e7e";
+                             }
+                        });
+
+                nodeUpdate.select("text")
+                        .style("fill-opacity", 1);
+
+                // Transition exiting nodes to the parent's new position.
+                var nodeExit = node.exit().transition()
+                        .duration(duration)
+                        .attr("transform", function (d) {
+                            return "translate(" + source.y + "," + source.x + ")";
+                        })
+                        .remove();
+
+                nodeExit.select("circle")
+                        .attr("r", 1e-6);
+
+                nodeExit.select("text")
+                        .style("fill-opacity", 1e-6);
+
+                // Update the links
+                var link = svg.selectAll("path.link")
+                        .data(links, function (d) {
+                            return d.target.id;
+                        });
+
+                // Enter any new links at the parent's previous position.
+                link.enter().insert("path", "g")
+                        .attr("class", "link")
+                        .attr("data-id", function (d) {
+                            return d.source.id;
+                        })
+                        .style("stroke-width", function (d) {
+
+                            return (15 - d.source.children.length);
+
+
+                        })
+                        .attr("d", function (d) {
+                            var o = {x: source.x0, y: source.y0};
+                            return diagonal({source: o, target: o});
+                        });
+
+                // Transition links to their new position.
+                link.transition()
+                        .duration(duration)
+                        .attr("d", diagonal);
+
+                d3.select(".distribMatrix").selectAll("text").style("fill", "black");
+                d3.select(".distribMatrix").selectAll("text").style("stroke", "transparent");
+                // Transition exiting nodes to the parent's new position.
+                link.exit().transition()
+                        .duration(duration)
+                        .attr("d", function (d) {
+                            var o = {x: source.x, y: source.y};
+                            return diagonal({source: o, target: o});
+                        })
+                        .remove();
+
+                // Stash the old positions for transition.
+                nodes.forEach(function (d) {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+               $(".path-distrib-list li.active").trigger("click");
+                setTimeout(function () {
+                    $(".path-distrib-list li.active").trigger("click");
+                }, 787);
+
+            }
+
+            // Toggle children on click.
+            function click(d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+                traverse(d);
+
+                setTimeout(function () {//triggered when user clicks on circle
+                    //$(".path-distrib-list li.active").trigger("click");
+                }, 710);
+            }
+            setTimeout(function () {
+               // $(".path-distribution li[data-path=Lobby]:eq(1)").trigger("click");
+                $('.distrib-matrix-list li[data-path=Lobby]').trigger('click');
+                $('.heat-map-list li[data-path=4]').trigger('click');
+               
+            },1000);
+            /*--path distribution graph(end)--*/
+
+
+            var stack = [];
+
+            function findRoot(node, id) {
+                if (typeof node.children != "undefined") {
+                    for (var i = 0; i < node.children.length; i++)
+                    {
+                        if (node.children[i].id == id) {
+                            traverse(node.children[i]);
+                            return false;
+                        } else if (node.id == id) {
+                            traverse(node);
+                            return false;
+                        } else {
+                            findRoot(node.children[i], id); //<-- recursive
+                        }
+                    }
+                }
+
+            }
+
+            function traverse(node)
+            {
+                d3.select(".path-distrib circle[data-id='" + node.id + "']").style("fill", "#5667b7");
+                d3.selectAll(".path-distrib path[data-id='" + node.id + "']").style("stroke", "#6bccbb").style("stroke-opacity", ".9");
+                if (typeof node.children != "undefined") {
+                    for (var i = 0; i < node.children.length; i++)
+                    {
+                        traverse(node.children[i]); //<-- recursive     
+                    }
+                }
+            }
+
+            $(function () {
+                $(".path-distrib-list li").click(function () {
+
+                    $(".path-distrib-list li").removeClass("active");
+                    $(this).addClass("active");
+
+                    d3.select(".path-distrib").selectAll("circle").style("fill", "#7e7e7e");
+                    d3.select(".path-distrib").selectAll("path").style("stroke", "#a6a6a6").style("stroke-opacity", ".2");
+
+                    var id = $(this).attr("data-path");
+                    if (flag == 1)
+                        findRoot(treeData1[0], id + ' Updated');
+                    else
+                        findRoot(treeData[0], id);
+
+
+
+                });
+
+                $(".distrib-matrix-list  li").click(function () {
+
+                    $(".distrib-matrix-list  li").removeClass("active");
+                    $(this).addClass("active");
+                    var id = $(this).attr("data-path");
+
+                    if (id != "All Floors") {
+
+                        d3.select(".distribMatrix").selectAll("rect").style("fill", "#7e7e7e");
+                        d3.select(".distribMatrix").selectAll("path").style("stroke", "#a6a6a6").style("stroke-opacity", ".2");
+                        d3.select(".distribMatrix").selectAll("rect[data-id='" + id + "']").style("fill", "#5667b7");
+                        d3.select(".distribMatrix").selectAll("path[data-id='" + id + "']").style("stroke", "#57c2b0").style("stroke-opacity", ".7");
+
+                    } else {
+
+                        d3.select(".distribMatrix").selectAll("rect").style("fill", "#5667b7");
+                        d3.select(".distribMatrix").selectAll("path").style("stroke", "#57c2b0").style("stroke-opacity", ".7");
+
+                    }
+
+
+
+                });
+
+            });
+
+        </script>
+
+        <!-- tooltip -->
+        <div class="matrix-tooltip" style="visibility:hidden;">
+            <i></i>
+            <ul>
+                <li class="option1"><span>Lobby</span><span>2721</span></li>
+
+            </ul>
+        </div>
+
+    </body>
+</html>
